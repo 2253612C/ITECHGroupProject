@@ -26,5 +26,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('recipe/', include('recipeSite.urls')),
     path('register/', views.register, name= 'register'),
-    path('login/', views.login, name= 'login'),
+    path('login/', views.user_login, name= 'user_login'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
