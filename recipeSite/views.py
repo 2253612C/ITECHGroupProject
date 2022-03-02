@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+
+def index(request):
+     return HttpResponse("This is index page")
+
 def home(request):
     return HttpResponse("This is the homepage")
 
@@ -8,7 +12,7 @@ def about(request):
     return HttpResponse("This is the about page")
 
 def login(request):
-    return HttpResponse("This is the login page ")
+    return render(request, 'recipeSite/login.html')
 
 def register(request):
     return HttpResponse("This is the register page")

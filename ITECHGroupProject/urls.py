@@ -20,7 +20,8 @@ from recipeSite import views
 from recipeSite import urls
 
 urlpatterns = [
+    path('', views.index, name= 'index'),
     path('admin/', admin.site.urls),
-    path('', views.home, name= 'home'),
+    path('login/', views.login, name= 'login'),
     path('recipe/', include('recipeSite.urls')),
 ]
