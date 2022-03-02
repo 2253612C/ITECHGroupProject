@@ -9,3 +9,9 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return self.user.username
+
+class Ingredient(models.Model):
+    ingredientName = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.ingredientName
