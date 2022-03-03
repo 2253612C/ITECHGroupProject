@@ -1,0 +1,89 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+div {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.top1{
+    background-color: #333;
+}
+.top2{
+    background-color: white;
+}
+li {
+    float: right;
+}
+li a {
+    display: block;
+    text-align: center;
+    padding: 25px 16px;
+    text-decoration: none;
+}
+em {
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    text-decoration: none;
+}
+.top1 li{
+    color: white;
+}
+.top1 li a{
+    color:white;
+}
+.top2 li a{
+    color: black;
+}
+em{
+    color: white;
+    font-style: normal;
+    text-align: center;
+    padding: 14px 16px;
+    display: block;
+}
+.logo{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    float: left;
+    font-size: 30px;
+}
+.menu{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    float: left;
+}
+.search{
+    width: 30%;            
+    margin: 16px;
+    display: flex;
+    padding: 14px 16px;
+}
+.search input{
+    float: left;
+    flex: 12;
+    height: 30px;
+    outline: none;
+    border: 1px solid;
+    box-sizing: border-box;
+    padding-left: 10px;
+    border-radius: 20px;
+}
+.search button{
+    float: right;
+    flex: 1;
+    height: 30px;
+    border-style: none;
+    outline: none;
+}
