@@ -22,15 +22,15 @@ class Recipe(models.Model):
     Difficutly = models.IntegerField(max_length=20)
     def __str__(self):
         return self.recipeName
+    
 class Comments(models.Model):
-
-    category = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    title = models.CharField(max_length=128)
-    url = models.URLField()
-    views = models.IntegerField(default=0)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    #whose_comment
+    submissionDateTime = models.DateTimeField()
+    content = models.TextField(max_length=500)
 
     def __str__(self):
-        return self.title
+        return self.submissionDateTime
 
 class Ingredient(models.Model):
     ingredientName = models.CharField(max_length=50)
