@@ -33,7 +33,7 @@ class Recipe(models.Model):
     difficulty = models.CharField(max_length=6 ,
                                   choices=RECIPE_DIFFICULTY,
                                    default=EASY)
-    servings = models.IntegerField(default=0)
+    servings = models.PositiveIntegerField(default=0)
     likes=models.IntegerField(default=0)
     image=  models.ImageField(upload_to='recipeImages',blank=True)
 
