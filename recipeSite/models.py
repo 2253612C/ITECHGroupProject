@@ -30,7 +30,7 @@ class Comments(models.Model):
     content = models.TextField(max_length=500)
 
     def __str__(self):
-        return self.submissionDateTime
+        return self.content
 
 class Ingredient(models.Model):
     ingredientName = models.CharField(max_length=50)

@@ -107,3 +107,15 @@ def browseRecipe(request):
 
 def addRecipe(request):
     return HttpResponse("This is the add recipe page")
+
+def myRecipes(request):
+    return HttpResponse("This is page to view your own recipes")
+
+def savedRecipes(request):
+    return HttpResponse("This is page to view your bookmarked recipes")
+
+def myAccount(request):
+    return HttpResponse("This is the account page")
+
+def signOut(request):
+    return HttpResponse("This is the signout page")
