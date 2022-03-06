@@ -27,6 +27,6 @@ urlpatterns = [
     path('myAccount/', views.myAccount, name= 'myAccount'),
     path('register/', views.register, name= 'register'),
     path('login/', views.user_login, name= 'user_login'),
-    path('signout/', views.user_login, name= 'signout'),
+    path('signout/', views.user_logout, name= 'signout'),
     path('recipes/', include('recipeSite.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -37,7 +37,7 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                return redirect(reverse('index'))
+                return redirect(reverse('browseRecipes'))
             else:
                 #An inactive account was used - no logging in!
                 return HttpResponse("Your Rango account is disabled.")
@@ -58,7 +58,7 @@ def user_logout(request):
 
     logout(request)
 
-    return redirect(reverse('index'))
+    return redirect(reverse('browseRecipes'))
 
 
 def register(request):
@@ -106,22 +106,22 @@ def browseRecipe(request):
     return render(request, 'recipeSite/browse.html',
             context =  {
             })
-
+@login_required
 def addRecipe(request):
    return render(request, 'recipeSite/addRecipe.html',
             context =  {
             })
-
+@login_required
 def myRecipes(request):
    return render(request, 'recipeSite/myRecipes.html',
             context =  {
             })
-
+@login_required
 def savedRecipes(request):
   return render(request, 'recipeSite/savedRecipes.html',
             context =  {
             })
-
+@login_required
 def myAccount(request):
     return render(request, 'recipeSite/myAccount.html',
             context =  {
