@@ -1,16 +1,17 @@
-.login-inputs{
-    display: table;
+
+div.border{
+  display: table;
     width: 45px;
     margin-left: 40%;
     margin-top: 5cm;
     vertical-align: middle;
-    padding: 20px; /*makes it look neat*/
+    padding-left: 100px;
+    padding-right: 100px;
     border-radius: 4px; /*or 2px*/
     border-spacing: 1cm;
     box-shadow: 0 3px 15px rgb(0 0 0 / 0.2);
     font-family: Helvetica;
-    
- }
+}
  
  .login-button{
      width: 100%;
@@ -24,3 +25,9 @@
      outline: none;
      
    }
+
+   p.registerText{
+    display: inline-block;
+    margin-top: 50px;
+  
+  }

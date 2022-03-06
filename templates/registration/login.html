@@ -3,7 +3,6 @@
 {% load staticfiles %}
 
 
-
 {% block title_block %}
 
 Login 
@@ -15,7 +14,8 @@ Login
         
         <link rel="stylesheet" href="{% static 'css/login.css' %}">
 
-        <form class="login-inputs" method="post" action=".">
+        <div class="border">
+        <form  method="post" action=".">
             
             {% csrf_token %}
 
@@ -26,10 +26,13 @@ Login
             <input type="hidden" name="next" value="{{ next }}"/>
             
         </form>
-       
-<p>
-    Not registered?
-    <a href="{% url 'registration_register' %}">Register here!</a>
-</p>
+
+        <p class="registerText">
+         Not registered?
+            <a href="{% url 'registration_register' %}">Register here!</a>
+        </p>
+
+        </div>
+
 
 {% endblock %}

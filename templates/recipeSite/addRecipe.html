@@ -1,16 +1,21 @@
-<!DOCTYPE html>
 {% extends 'recipeSite/base.html' %}
 {% load staticfiles %}
 
-
-
 {% block title_block %}
-
-Add Recipes 
-
+Add a Recipe
 {% endblock %}
-    
-{% block body_block %}
-            
 
+{% block body_block %}
+        <link rel="stylesheet" href="{% static 'css/addRecipe.css' %}">
+
+        <h1>Add a Recipe</h1>
+        <div>
+            <form class="add_recipe_form" method="post" action=".">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            <input type="submit" name="submit" value="Add Recipe"/>
+
+            </form>
+        </div>
 {% endblock %}
