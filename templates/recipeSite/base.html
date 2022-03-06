@@ -17,13 +17,14 @@
     <ul class="top1">
         <li class="logo">MyRecipes</li>
         {% if user.is_authenticated %}
-        <li><a href="{% url 'signout' %}">Sign-out</a></li>
+        <li><a href="{% url 'auth_logout' %}?next={% url 'browse' %}">Sign-out</a></li>
         <li><em>|</em></li>
         <li><a href="{% url 'myAccount' %}">My Account</a></li>
         {% else %}
-        <li><a href="{% url 'user_login' %}">Login</a></li>
+        <li><a href="{% url 'registration_register' %}">Register</a></li>
         <li><em>|</em></li>
-        <li><a href="{% url 'register' %}">Register</a></li>
+        <li><a href="{% url 'auth_login' %}">Login</a></li>
+        
         {% endif %}
 
     </ul>
