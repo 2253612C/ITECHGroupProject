@@ -1,15 +1,9 @@
 from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse
 from recipeSite.forms import UserForm, UserProfileForm
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login, logout
+from django.contrib.auth.decorators import login_required
 
-
-
-def index(request):
-     return HttpResponse("This is index page")
-
-def home(request):
-    return HttpResponse("This is the homepage")
 
 def about(request):
     return HttpResponse("This is the about page")
@@ -57,8 +51,14 @@ def user_login(request):
     else:
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
-        return render(request, 'login.html')
+        return render(request, 'recipeSite/login.html')
 
+
+def user_logout(request):
+
+    logout(request)
+
+    return redirect(reverse('index'))
 
 
 def register(request):
@@ -103,19 +103,29 @@ def register(request):
                   )
 
 def browseRecipe(request):
-    return HttpResponse("This is the browse page")
+    return render(request, 'recipeSite/browse.html',
+            context =  {
+            })
 
 def addRecipe(request):
-    return HttpResponse("This is the add recipe page")
+   return render(request, 'recipeSite/addRecipe.html',
+            context =  {
+            })
 
 def myRecipes(request):
-    return HttpResponse("This is page to view your own recipes")
+   return render(request, 'recipeSite/myRecipes.html',
+            context =  {
+            })
 
 def savedRecipes(request):
-    return HttpResponse("This is page to view your bookmarked recipes")
+  return render(request, 'recipeSite/savedRecipes.html',
+            context =  {
+            })
 
 def myAccount(request):
-    return HttpResponse("This is the account page")
+    return render(request, 'recipeSite/myAccount.html',
+            context =  {
+            })
 
-def signOut(request):
-    return HttpResponse("This is the signout page")
+def restricted(request):
+    return HttpResponse("You have to be a registered user to view this page")

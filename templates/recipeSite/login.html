@@ -13,6 +13,8 @@ Login
 {% block body_block %}
             
         <div>
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
         <form class="login-inputs" method="post" action="{% url 'user_login' %}">
             {% csrf_token %}
             Username: <input type="text" name="username" value="" size="50" />

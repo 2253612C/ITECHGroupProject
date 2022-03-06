@@ -1,0 +1,29 @@
+
+
+.register-inputs{
+    display: table;
+    text-align :justify;
+    width: 20cm;
+    margin-left: 30%;
+    margin-top: 5cm;
+    vertical-align: middle;
+    padding: 20px; /*makes it look neat*/
+    border-radius: 4px; /*or 2px*/
+    border-spacing: 1cm;
+    box-shadow: 0 3px 15px rgb(0 0 0 / 0.2);
+    font-family: Helvetica;
+    
+ }
+ 
+ .register-button{
+     width: 100%;
+     padding: 7px;
+     border: none;
+     margin-top: 10px;
+     border-radius: 5px;
+     color: white;
+     font-weight: bold;
+     background-color: #3a3a3a;
+     outline: none;
+     
+   }
