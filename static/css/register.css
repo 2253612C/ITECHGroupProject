@@ -1,13 +1,58 @@
+.helptext{
+  color : grey;
+  font-size: small;
+}
+
+.register-border ul{
+  display: block;
+  list-style-type: disc;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: 40px;
+  color : grey
+
+}
 
 
+.register-border form  { 
+  display: table;      
+}
+.register-border label { 
+    display: inline-block;
 
-.register-inputs{
-    display: block;
-    width: 20cm;
+    clear: left;
+    width: 250px;
+    text-align: right;
+}
+.register-border input { 
+  margin-left: auto;
+  margin-top: 2px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+/* add style only to the 'li' elements inside the id="one" div. this means 'li' inside the 'ul' inside the 'div' which its id="one" */
+.register-border ul li{
+  display: list-item;
+  float:left;
+  color : grey;
+  margin-left: 0%;
+  padding-right: 100%;
+  font-size: small;
+  margin: 0px 5px 5px 5px;
+  margin-left: 250px;
+
+}
+
+.register-border{
+    width: 1000px;
+    white-space:pre-wrap;
+    display: inline-block;
+    white-space: nowrap;
     margin-left: 20%;
     margin-top: 5cm;
-    vertical-align: middle;
-    padding: 20px; /*makes it look neat*/
+    padding: 40px; /*makes it look neat*/
     border-radius: 4px; /*or 2px*/
     border-spacing: 1cm;
     box-shadow: 0 3px 15px rgb(0 0 0 / 0.2);
@@ -16,10 +61,11 @@
  }
  
  .register-button{
-     width: 100%;
+     width: 30%;
+     margin: auto;
+     display:block;
      padding: 7px;
      border: none;
-     margin-top: 10px;
      border-radius: 5px;
      color: white;
      font-weight: bold;

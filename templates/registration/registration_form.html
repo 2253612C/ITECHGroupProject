@@ -12,14 +12,17 @@ Register
 
 <link rel="stylesheet" href="{% static 'css/register.css' %}">
 
-<form class="register-inputs" method="post" action=".">
+<div class="register-border">
+
+    <form class= "register-fields" method="post" action=".">
    
-    {% csrf_token %}
+        {% csrf_token %}
+        {{ form.as_p }}
     
-    {{ form.as_p }}
+        <input type="submit" name="submit" value="Register" class="register-button" />
+    
+    </form>
+</div>
 
-    <input type="submit" name="submit" value="Register" class="register-button" />
-
-</form>
 
 {% endblock %}
