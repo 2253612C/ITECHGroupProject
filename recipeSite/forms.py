@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from recipeSite.models import UserProfile,Recipe,Comments
 from django.db import models
-
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -28,6 +29,8 @@ class RecipeForm(forms.ModelForm):
     difficulty = forms.ChoiceField(label="Difficulty",choices=Recipe.RECIPE_DIFFICULTY,help_text="Please enter the difficulty.")
     image=  forms.ImageField(label="Add an Image")
     likes = forms.IntegerField(widget=forms.HiddenInput(), required= False, initial=0)
+
+    
 
     # An inline class to provide additional information on the form.
     class Meta:

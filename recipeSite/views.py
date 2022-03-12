@@ -19,7 +19,7 @@ def addRecipe(request):
     form=RecipeForm()
 
     if request.method == 'POST':
-        form=RecipeForm(request.POST)
+        form=RecipeForm(request.POST,request.FILES)
 
         if form.is_valid():
 

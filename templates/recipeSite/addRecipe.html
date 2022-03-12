@@ -1,5 +1,7 @@
 {% extends 'recipeSite/base.html' %}
+{% load crispy_forms_tags %}
 {% load staticfiles %}
+
 
 {% block title_block %}
 Add a Recipe
@@ -9,12 +11,17 @@ Add a Recipe
         <link rel="stylesheet" href="{% static 'css/addRecipe.css' %}">
 
         <h1>Add a Recipe</h1>
-        <div>
-            <form class="add_recipe_form" method="post" action=".">
+        
+        <div class ="add_recipe_form">
+
+            <form method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}
             
-            {{ form.as_p }}
-            <input type="submit" name="submit" value="Add Recipe"/>
+            {% crispy form %}
+
+            </br>
+            
+            <input id="add_recipe_button" class="btn btn-primary" type="submit"  name="submit" value="Add Recipe"/>
 
             </form>
         </div>
