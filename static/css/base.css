@@ -72,13 +72,19 @@ em{
 }
 .search input{
     float: left;
-    flex: 12;
+    
     height: 30px;
     outline: none;
-    border: 1px solid;
     box-sizing: border-box;
     padding-left: 10px;
     border-radius: 20px;
+    width: 200px;
+    border: 1px solid #e2e2e2;
+    background-image: url(/static/images/search.jpg);
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position:5px center;
+    padding:0 0 0 40px;
 }
 .search button{
     float: right;
@@ -87,6 +93,21 @@ em{
     border-style: none;
     outline: none;
 }
-
+#box{
+    width: 380px;
+    margin: 30px auto;
+    font-family: 'Microsoft YaHei';
+    font-size: 14px;
+}
+#search{
+    width: 78px;
+    height: 32px;
+    float: right;
+    background: black;
+    color: white;
+    text-align: center;
+    line-height: 32px;
+    cursor: pointer;
+}
 
 
