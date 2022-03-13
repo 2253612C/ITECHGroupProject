@@ -20,17 +20,16 @@ class UserProfileForm(forms.ModelForm):
 
 
 class RecipeForm(forms.ModelForm):
-    recipeName =  forms.CharField(label="Name Your Recipe",max_length=50, help_text="Please enter the recipe name.")
+    #recipeName =  forms.CharField(label="Name Your Recipe",max_length=50, help_text="Please enter the recipe name.")
     category =  forms.CharField(label="Category",max_length=20, help_text="Please enter the category name.")
-    description = forms.CharField(label="Add a short description.",max_length=500, help_text="Please enter the description.") #was textfield
-    method = forms.CharField(label="Add a method",max_length=500, help_text="Please enter the method.") #was textfield
+    description = forms.CharField(label="Add a short description.",max_length=250, help_text="Please enter the description.",widget=forms.Textarea(attrs={'rows':5})) #was textfield
+    method = forms.CharField(label="Add a method",max_length=500, help_text="Please enter the method.",widget=forms.Textarea(attrs={'rows':5})) #was textfield
     cookTime = forms.DurationField(label="Cook Time",help_text="Please enter the cook time.")
     servings = forms.IntegerField(label="Serving Size",help_text="Please enter the serving size.",min_value=1,max_value=12)
     difficulty = forms.ChoiceField(label="Difficulty",choices=Recipe.RECIPE_DIFFICULTY,help_text="Please enter the difficulty.")
     image=  forms.ImageField(label="Add an Image")
     likes = forms.IntegerField(widget=forms.HiddenInput(), required= False, initial=0)
 
-    
 
     # An inline class to provide additional information on the form.
     class Meta:
@@ -39,8 +38,13 @@ class RecipeForm(forms.ModelForm):
         fields = ('recipeName','category','description','method','cookTime','servings','difficulty','likes','image')
         widgets = {
         'cookTime' : forms.DurationField,
-        'difficulty': forms.Select()
+        'difficulty': forms.Select(),
+        
+        'recipeName':forms.TextInput( attrs={ 'class': 'form-control', 'placeholder': 'Title', 'required': True, } ),
+        
         }
+
+    
 
 
 

@@ -1,5 +1,6 @@
 {% extends 'recipeSite/base.html' %}
 {% load crispy_forms_tags %}
+{% include 'bootstrap4/layout/help_text_and_errors.html' %}
 {% load staticfiles %}
 
 
@@ -10,19 +11,70 @@ Add a Recipe
 {% block body_block %}
         <link rel="stylesheet" href="{% static 'css/addRecipe.css' %}">
 
-        <h1>Add a Recipe</h1>
         
-        <div class ="add_recipe_form">
+        
+        <div class="container">
 
+          <h1>Add a Recipe</h1>
             <form method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}
             
-            {% crispy form %}
+            <div class="form-row">
+                  
+                  <div class="form-group col-md-6 mb-0">
+                    <label for= {{ form.recipeName.auto_id  }}>Name Your Recipe</label>
+                    {{ form.recipeName }}
+                    <small id="emailHelp" class="form-text text-muted">Please enter the name of your Recipe.</small>
+                  </div>
+                  
+                  <div class="form-group col-md-6 mb-0">
+                  {{ form.category|as_crispy_field }}
+                  </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-12  textarea mb-0">
+                {{ form.description|as_crispy_field }}
+              </div>
+                
+            </div>
 
-            </br>
+            <div class="form-row">
+                <div class="form-group col-md-4 mb-0">
+                  {{ form.cookTime|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                  {{ form.servings|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                  {{ form.difficulty|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12  textarea mb-0">
+                {{ form.method|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col  textarea mb-0">
+                   
+                  <div class="custom-file">
+                      <input type="file" name="image" accept="image/*" required id=  {{ form.image.auto_id }}>
+                      <label class="custom-file-label" for={{ form.image.auto_id }}>Choose file</label>
+                  </div>
+                    
+                    
+                </div>
+
+            </div>
+              
             
             <input id="add_recipe_button" class="btn btn-primary" type="submit"  name="submit" value="Add Recipe"/>
 
             </form>
+
+           
         </div>
 {% endblock %}

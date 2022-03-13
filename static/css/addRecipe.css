@@ -1,3 +1,8 @@
+div {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 div.add_recipe_form{
       margin-left: 20%;
       margin-top: 2%;
@@ -13,3 +18,12 @@ div.add_recipe_form{
   
     
   }
+.singleTextField{
+
+  width: 50%;
+
+}
+
+.textarea {
+  resize: none;
+}
