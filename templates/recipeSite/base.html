@@ -35,7 +35,12 @@
                 <button><img src="{% static 'images/search.jpg' %}" alt="Picture of search" height="30"></button>
                 <input type="text" placeholder="search recipe name or ingredients" name="" id="" value="" />
             </li>-->
-            
+            <li class="search">
+                <form action="{% url 'recipeSite:haystack_search' %}" method="get">
+                    <input type="text" name="q" placeholder="search recipe name or ingredients">
+                    <input type="submit" id="search" value="Search">
+                </form>
+            </li>
                
             
             <li class="menu"><a href="{% url 'browseRecipes' %}" target="-blank" title="home"><img
