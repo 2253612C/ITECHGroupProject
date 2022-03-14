@@ -43,17 +43,19 @@ Add a Recipe
 
 
                   <div class="row mb-3">
-                    <div class="col-1 offset-md-2">
-                        <input class="btn btn-primary" value="Add Ingredient"/>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="addIngredientButton">Button</button>
+                      </div>
                     </div>
                   </div>
 
 
                     <div class="row">
-                        <label for= "list">Add Ingredients</label>
-                        <ul class="list-group col-md-12" id="list">
-                          <li class="list-group-item">Cras justo odio</li>
-                          <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <label for= "ingredientlist">Add Ingredients</label>
+                        <ul class="list-group col-md-12" id="ingredientlist">
+
 
                         </ul>
                     </div>
@@ -78,7 +80,10 @@ Add a Recipe
                   <div class="row">
 
                     <div class="form-group col-md-12 mb-0">
-                      {{ form.description|as_crispy_field }}
+                      <div class="non-resize">
+                        {{ form.description|as_crispy_field }}
+                      <div>
+                      
                     </div>
                  
                   </div>
