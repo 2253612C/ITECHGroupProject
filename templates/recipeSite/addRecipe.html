@@ -10,7 +10,7 @@ Add a Recipe
 
 {% block body_block %}
         <link rel="stylesheet" href="{% static 'css/addRecipe.css' %}">
-
+        <script src="{% static "js/addRecipe.js" %}" crossorigin="anonymous"></script>
         <div class="container">
 
           
@@ -18,17 +18,19 @@ Add a Recipe
             
               {% csrf_token %}
               <h1>Add a Recipe</h1>
-             </br>
+              </br>
               <div class="row">
               
                     
-                <div class="col-md-4">
+                <div class="col-md-4 mr-5">
 
                     <div class="row mb-3">
                       <div class="thumbnail">
                          
-                        <label for= "recipe_image">Add An Image</label>
-                        <img src="{% static 'images/blankimage.png' %}" id="imagefield" class="img-thumbnail" alt="Blank Image" id="recipe_image">
+                        <label for= "imagefield">Add An Image</label>
+                        <img src="{% static 'images/blankimage.png' %}" id="imagefield" class="img-thumbnail img-fluid" width ="100%" alt="Blank Image">
+                          
+                      
                       </div>
                     
                     </div>
@@ -36,8 +38,8 @@ Add a Recipe
                     <div class="row mb-3">
                          
                         <div class="custom-file">
-                            <input type="file" name="image" accept="image/*" required id=  {{ form.image.auto_id }} formaction="previewImage()">
-                            <label class="custom-file-label" for={{ form.image.auto_id }}>Choose file</label>
+                            <input type="file" id="uploadImage" name="image" accept="image/*">
+                            <label class="custom-file-label" for=uploadImage>Choose file</label>
                         </div>
                   </div>
 
@@ -69,7 +71,7 @@ Add a Recipe
                     </div>
                 </div>
 
-                <div class="col-md-7 ml-4">
+                <div class="col-md-7 ml-3">
 
                     <div class="row">
 

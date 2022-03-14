@@ -27,4 +27,6 @@ div.add_recipe_form{
 .textarea {
   resize: none;
 }
-
+input[type="file"] {
+  display: none;
+}
