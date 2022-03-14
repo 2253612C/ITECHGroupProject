@@ -29,8 +29,7 @@ Add a Recipe
                          
                         <label for= "imagefield">Add An Image</label>
                         <img src="{% static 'images/blankimage.png' %}" id="imagefield" class="img-thumbnail img-fluid" width ="100%" alt="Blank Image">
-                          
-                      
+                        
                       </div>
                     
                     </div>
@@ -38,9 +37,15 @@ Add a Recipe
                     <div class="row mb-3">
                          
                         <div class="custom-file">
-                            <input type="file" id="uploadImage" name="image" accept="image/*">
-                            <label class="custom-file-label" for=uploadImage>Choose file</label>
+                            <input type="file" id="uploadImage" name="image" accept="image/*" style="display: none;">
                         </div>
+                  </div>
+
+
+                  <div class="row mb-3">
+                    <div class="col-1 offset-md-2">
+                        <input class="btn btn-primary" value="Add Ingredient"/>
+                    </div>
                   </div>
 
 
@@ -49,24 +54,7 @@ Add a Recipe
                         <ul class="list-group col-md-12" id="list">
                           <li class="list-group-item">Cras justo odio</li>
                           <li class="list-group-item">Dapibus ac facilisis in</li>
-                          <li class="list-group-item">Morbi leo risus</li>
-                          <li class="list-group-item">Porta ac consectetur ac</li>
-                          <li class="list-group-item">Vestibulum at eros</li>
-                          <li class="list-group-item">Cras justo odio</li>
-                          <li class="list-group-item">Dapibus ac facilisis in</li>
-                          <li class="list-group-item">Morbi leo risus</li>
-                          <li class="list-group-item">Porta ac consectetur ac</li>
-                          <li class="list-group-item">Vestibulum at eros</li>
-                          <li class="list-group-item">Cras justo odio</li>
-                          <li class="list-group-item">Dapibus ac facilisis in</li>
-                          <li class="list-group-item">Morbi leo risus</li>
-                          <li class="list-group-item">Porta ac consectetur ac</li>
-                          <li class="list-group-item">Vestibulum at eros</li>
-                          <li class="list-group-item">Cras justo odio</li>
-                          <li class="list-group-item">Dapibus ac facilisis in</li>
-                          <li class="list-group-item">Morbi leo risus</li>
-                          <li class="list-group-item">Porta ac consectetur ac</li>
-                          <li class="list-group-item">Vestibulum at eros</li>
+
                         </ul>
                     </div>
                 </div>
