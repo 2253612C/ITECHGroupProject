@@ -70,6 +70,7 @@ $(document).ready(function() {
         }
 
         else{
+
             var recipeName=$('#id_recipeName').val();
             var category=$('#id_category').val();
             var description=$('#id_description').val();
@@ -88,6 +89,16 @@ $(document).ready(function() {
             data.append('method',method);
             data.append('image',document.querySelector('input[type=file]').files[0]);
             data.append('csrfmiddlewaretoken',$('input[name=csrfmiddlewaretoken]').val());
+            
+            var ingredients_arr=[];
+            $('#ingredientlist li').each(function(n,v){
+                ingredients_arr.push($(v).text());
+            });
+
+            for (var i = 0; i < ingredients_arr.length; i++) {
+                data.append('ingredients_arr[]', ingredients_arr[i]);
+            }
+              
       
             $.ajax({
                 url: '',  //server script to process data

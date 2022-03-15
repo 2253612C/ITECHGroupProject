@@ -26,6 +26,9 @@ def addRecipe(request):
 
             form.save(commit=True)
 
+            ingredients=request.POST.getlist('ingredients_arr[]')
+            print(ingredients)
+
             return JsonResponse({
                 'success': True,
                 'url': reverse('browseRecipes'),
