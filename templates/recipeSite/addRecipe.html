@@ -95,26 +95,45 @@ Add a Recipe
                   </div>
                     
 
-                  <div class="col-md-3 ml-4">
+                  <div class="col-md-4 ml-5">
 
+                    <label for= "IngredientInputField" style="text-align: center">Add an Ingredient</label>
+                    
+                    <div class="row" id="IngredientInputField">
 
-                    <div class="row">
-                      <label for= "ingredientInput">Name Your Recipe</label>
-                      <div class="input-group mb-3">
-                        
-                        <input type="text" id= "ingredientInput" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-secondary" type="button" id="addIngredientButton">Button</button>
-                        </div>
+                      <div class="form-group col-md-6 mb-0">
+                          <input type="text" class="form-control" id="IngredientNameField" placeholder="Ingredient Name">                          
+                      </div>
+                    
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="IngredientQuantityField" aria-describedby="emailHelp" placeholder="Quantity">                          
                       </div>
                     </div>
-                    
+                  
+                  
+                    <div class="row justify-content-md-center">
+
+                      <div class ="col-md-auto">
+                        <div class="form-group">
+                          <div class="custom-file">
+                            <input type="button" class="btn btn-primary" id="addIngredientButton" value="Add Ingredient"/> 
+                          </div>
+                            
+                            
+                        </div>
+                      </div>
+  
+                    </div>
+
                     <div class="row">
                       <ul class="list-group col-md-12" id="ingredientlist">
                       </ul>
+                    </div>
+                  
+                  
                   </div>
 
-                  </div>
+                  
         
             </div>>
 

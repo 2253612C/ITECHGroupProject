@@ -21,10 +21,31 @@ $(document).ready(function() {
         }
     )
 
-    var list_items=[];
     $("#addIngredientButton").click(function() {
-        $('#ingredientlist').append("<li class='list-group-item'> test </li>"); 
+
+        var ingredient = $("#IngredientNameField").val();
+        var quantity = $("#IngredientQuantityField").val();
+
+        $("#IngredientNameField").val( "" );
+        $("#IngredientQuantityField").val( "" );
+        
+        if (ingredient!="" && quantity!=""){
+            $('#IngredientNameField').css({'border' : ''}); //reset the border back to default
+            $('#IngredientQuantityField').css({'border' : ''}); //reset the border back to default
+            $('#ingredientlist').append("<li class='list-group-item'>"+ ingredient+", "+quantity+'<input type="button" class="deleteIngredient style="text-align: right" value="Delete"/></li>'); 
+            $('#deleteIngredient').addClass("deleteIngredient")
+
+        }
+        else{
+            $('#IngredientNameField').css({'border' : '1px solid red'}); //add a red line to show user error
+            $('#IngredientQuantityField').css({'border' : '1px solid red'}); //add a red line to show user error
+
+        }
     })
+
+    $(document).on('click', '.deleteIngredient', function() {
+        $(this).parent().remove();
+    });
 
 });
 

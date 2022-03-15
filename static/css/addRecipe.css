@@ -30,3 +30,8 @@ div.add_recipe_form{
 input[type="file"] {
   display: none;
 }
+
+.deleteIngredient{
+
+  width: 80%;
+}
