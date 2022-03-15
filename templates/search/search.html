@@ -1,13 +1,16 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+{% extends 'recipeSite/base.html' %}
 {% load highlight %}
+{% load staticfiles %}
 {% block title %}Search{% endblock %}
 
-{% block content %}
+{% block body_block %}
 <div class="col-md-9">
     <div class="row text-center vertical-middle-sm">
         <h1>Result</h1>
     </div>
     {% if query %}
+
     {% for result in page.object_list %}<div class="media">
         <a href="{{  result.object.get_absolute_url }}" class="list-group-item active">
             {% if result.object.avatar %}
