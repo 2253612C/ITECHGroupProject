@@ -70,11 +70,43 @@ $(document).ready(function() {
         }
 
         else{
-            $('#recipeForm').submit();
+            var recipeName=$('#id_recipeName').val();
+            var category=$('#id_category').val();
+            var description=$('#id_description').val();
+            var cookTime=$('#id_cookTime').val();
+            var servings=$('#id_servings').val();
+            var difficulty=$('#id_difficulty').val();
+            var method=$('#id_method').val();
+
+            var data= new FormData();
+            data.append('recipeName', recipeName);
+            data.append('category',category);
+            data.append('description',description);
+            data.append('cookTime',cookTime);
+            data.append('servings',servings);
+            data.append('difficulty',difficulty);
+            data.append('method',method);
+            data.append('image',document.querySelector('input[type=file]').files[0]);
+            data.append('csrfmiddlewaretoken',$('input[name=csrfmiddlewaretoken]').val());
+      
+            $.ajax({
+                url: '',  //server script to process data
+                type: 'POST',
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false
+            }).done(function (data){
+
+                if (data.success){
+                    window.location.href = data.url;
+                }
+                else{
+                    document.write(data.html);
+                }
+                
+            });
         }
-        
-        
-    
     });
 });
 

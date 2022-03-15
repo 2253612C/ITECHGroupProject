@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect,reverse
+from django.template.loader import render_to_string
 from django.http import HttpResponse
 from recipeSite.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
 from recipeSite.forms import *
-
+from django.http import JsonResponse
 
 def about(request):
     return HttpResponse("This is the about page")
@@ -25,10 +26,19 @@ def addRecipe(request):
 
             form.save(commit=True)
 
-            return redirect('browseRecipes') #should be changed to view recipe page once that is complete
+            return JsonResponse({
+                'success': True,
+                'url': reverse('browseRecipes'),
+            })
 
         else:
             print(form.errors)
+            html = render_to_string('recipeSite/addRecipe.html',context =  {'form' : form})
+            return JsonResponse({
+                'success': False,
+                'html': html,
+            })
+
 
     return render(request, 'recipeSite/addRecipe.html',context =  {'form' : form})
 
