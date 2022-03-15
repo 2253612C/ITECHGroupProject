@@ -55,16 +55,27 @@ $(document).ready(function() {
 
     $('#submitRecipe').click(function(){
 
-        if ($('#ingredientlist').children().length === 0 ){
-            alert("test");
+        if (!$("#recipeForm")[0].checkValidity()){
+            $('#recipeForm')[0].reportValidity();
+        }
+            
+
+        else if ($('#ingredientlist').children().length === 0 ){
+            alert("Need to add at least 1 Ingredient to the recipe.");
+            $('#IngredientNameField').css({'border' : '1px solid red'}); //add a red line to show user error
+            $('#IngredientQuantityField').css({'border' : '1px solid red'}); //add a red line to show user error
             return false;
         }
         else if (!user_upload){
-            alert("didn't upload an image");
+            alert("Need to upload an Image. (Click on the image box to upload an image)");
             return false;
         }
+
+        else{
+            $('#recipeForm').submit();
+        }
         
-        $('#recipeForm').submit();
+        
     
     });
 });
