@@ -1,11 +1,14 @@
 $(document).ready(function() {
     
+    var user_upload=false;
+
     $("#imagefield").click(function() {
         $("#uploadImage").click(); //run the function to execute the upload image button when clicking the image frame
     })
 
     //based on example at https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
     $("#uploadImage").change(function() {
+        
         const preview = document.querySelector('#imagefield');
         const file = document.querySelector('input[type=file]').files[0];
         const reader = new FileReader();
@@ -18,6 +21,8 @@ $(document).ready(function() {
         if (file) {
             reader.readAsDataURL(file);
         }
+
+        user_upload=true;
         }
     )
 
@@ -32,7 +37,7 @@ $(document).ready(function() {
         if (ingredient!="" && quantity!=""){
             $('#IngredientNameField').css({'border' : ''}); //reset the border back to default
             $('#IngredientQuantityField').css({'border' : ''}); //reset the border back to default
-            $('#ingredientlist').append("<li class='list-group-item'>"+ ingredient+", "+quantity+'<input type="button" class="deleteIngredient style="text-align: right" value="Delete"/></li>'); 
+            $('#ingredientlist').append("<li class='list-group-item'>"+ ingredient+", "+quantity+'<input type="button" class="deleteIngredient" value="Delete"/></li>'); 
             $('#deleteIngredient').addClass("deleteIngredient")
 
         }
@@ -47,6 +52,21 @@ $(document).ready(function() {
         $(this).parent().remove();
     });
 
+
+    $('#submitRecipe').click(function(){
+
+        if ($('#ingredientlist').children().length === 0 ){
+            alert("test");
+            return false;
+        }
+        else if (!user_upload){
+            alert("didn't upload an image");
+            return false;
+        }
+        
+        $('#recipeForm').submit();
+    
+    });
 });
 
 
