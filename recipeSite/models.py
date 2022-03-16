@@ -2,7 +2,7 @@ from this import d
 from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.template.defaultfilters import slugify
 
 class UserProfile(models.Model):
 
@@ -36,7 +36,9 @@ class Recipe(models.Model):
     servings = models.PositiveIntegerField(default=0)
     likes=models.IntegerField(default=0)
     image=  models.ImageField(upload_to='recipeImages',blank=True)
-
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Recipe, self).save(*args, **kwargs)
     def __str__(self):
         return self.recipeName
     
