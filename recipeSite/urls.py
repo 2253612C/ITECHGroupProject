@@ -13,3 +13,4 @@ urlpatterns = [
    #path('<slug:recipe_name_slug>/',views.viewRecipe.as_view(), name='viewRecipe'),
    path('viewRecipe/', views.viewRecipe, name= 'viewRecipe'),
    #path('restricted/', views.restricted, name= 'restricted'),
+]
