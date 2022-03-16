@@ -6,6 +6,9 @@ from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
 from recipeSite.forms import *
 from django.http import JsonResponse
+from django.views import View
+
+from recipeSite.models import Ingredient
 
 def about(request):
     return HttpResponse("This is the about page")
@@ -24,14 +27,14 @@ def addRecipe(request):
 
         if form.is_valid():
 
-            form.save(commit=True)
-
+            recipe=form.save(commit=True)
             ingredients=request.POST.getlist('ingredients_arr[]')
+           
             print(ingredients)
 
             return JsonResponse({
                 'success': True,
-                'url': reverse('browseRecipes'),
+                'url': reverse('recipeSite:viewRecipe',kwargs={'recipe_name_slug': recipe.slug}),
             })
 
         else:
@@ -44,6 +47,27 @@ def addRecipe(request):
 
 
     return render(request, 'recipeSite/addRecipe.html',context =  {'form' : form})
+
+class viewRecipe(View):
+
+    def getRecipe(self,context_dict,recipe_name_slug):
+        try:
+
+            recipe = Recipe.objects.get(slug=recipe_name_slug)
+            ingredients = Ingredient.objects.filter(recipe=recipe)
+        
+            context_dict['recipe'] = recipe
+            context_dict['ingredients'] = ingredients
+
+        except Recipe.DoesNotExist:
+        
+            context_dict['recipe'] = None
+            context_dict['ingredients'] = None
+
+    def get(self, request,recipe_name_slug):
+        context_dict ={}
+        self.getRecipe(context_dict,recipe_name_slug)
+        return render(request, 'recipeSite/viewRecipe.html', context=context_dict)
 
 
 @login_required

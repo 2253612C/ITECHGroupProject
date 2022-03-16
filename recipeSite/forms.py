@@ -24,7 +24,7 @@ class RecipeForm(forms.ModelForm):
     category =  forms.CharField(label="Category",max_length=20, help_text="Please enter the category name.")
     description = forms.CharField(label="Add a short description.",max_length=250, help_text="Please enter the description.",widget=forms.Textarea(attrs={'rows':2})) #was textfield
     method = forms.CharField(label="Add a method",max_length=500, help_text="Please enter the method.",widget=forms.Textarea(attrs={'rows':2})) #was textfield
-    cookTime = forms.DurationField(label="Cook Time",help_text="Please enter the cook time.")
+    cookTime = forms.IntegerField(label="Cook Time",help_text="Please enter the cook time (in minutes)")
     servings = forms.IntegerField(label="Serving Size",help_text="Please enter the serving size.",min_value=1,max_value=12)
     difficulty = forms.ChoiceField(label="Difficulty",choices=Recipe.RECIPE_DIFFICULTY,help_text="Please enter the difficulty.")
     image=  forms.ImageField(label="Add an Image")
