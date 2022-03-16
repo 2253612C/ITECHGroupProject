@@ -14,9 +14,16 @@ def about(request):
     return HttpResponse("This is the about page")
 
 def browseRecipe(request):
-    return render(request, 'recipeSite/browse.html',
-            context =  {
-            })
+    Recipe_list = Recipe.objects.order_by('-likes')[:3]
+
+    return render(request, 'recipeSite/browseRecipe.html',
+            context = {'Recipe_list' : Recipe_list})
+
+def viewRecipe(request):
+    
+    return render(request, 'recipeSite/viewRecipe.html',
+            context ={} )
+
 @login_required
 def addRecipe(request):
 
@@ -72,9 +79,11 @@ class viewRecipe(View):
 
 @login_required
 def myRecipes(request):
-   return render(request, 'recipeSite/myRecipes.html',
-            context =  {
-            })
+    Recipe_list = Recipe.objects.all()
+
+    return render(request, 'recipeSite/myRecipes.html',
+            context = {'Recipe_list' : Recipe_list})
+
 @login_required
 def savedRecipes(request):
   return render(request, 'recipeSite/savedRecipes.html',
