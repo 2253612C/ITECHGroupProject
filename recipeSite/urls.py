@@ -10,5 +10,6 @@ urlpatterns = [
    path('myRecipes/', views.myRecipes, name= 'myRecipes'),
    path('addRecipe/', views.addRecipe, name= 'addRecipe'),
    path('search/', SearchView(), name='haystack_search'),
+   path('viewRecipe/', views.viewRecipe, name= 'viewRecipe'),
    #path('restricted/', views.restricted, name= 'restricted'),
 ]
