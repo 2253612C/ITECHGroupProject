@@ -1,5 +1,8 @@
 {% extends 'recipeSite/base.html' %}
+{% load crispy_forms_tags %}
+{% include 'bootstrap4/layout/help_text_and_errors.html' %}
 {% load staticfiles %}
+
 
 {% block title_block %}
 Add a Recipe
@@ -7,15 +10,149 @@ Add a Recipe
 
 {% block body_block %}
         <link rel="stylesheet" href="{% static 'css/addRecipe.css' %}">
+        <script src="{% static "js/addRecipe.js" %}" crossorigin="anonymous"></script>
+        <div class="container-fluid">
 
-        <h1>Add a Recipe</h1>
-        <div>
-            <form class="add_recipe_form" method="post" action=".">
-            {% csrf_token %}
+          
+            <form id="recipeForm" method="post" action="." enctype="multipart/form-data">
             
-            {{ form.as_p }}
-            <input type="submit" name="submit" value="Add Recipe"/>
+              {% csrf_token %}
 
+              <div class="row">
+               <div class="offset-1 mb-5">
+                <h1>Add a Recipe</h1>
+                </div>
+                
+              </br>
+              </div>
+              
+              <div class="row">
+              
+                    
+                  <div class="col-md-2 offset-1">
+
+                    <div class="row mb-3">
+                      <div class="thumbnail">
+                        <label for= "imagefield">Add An Image</label>
+                        <img src="{% static 'images/blankimage.png' %}" id="imagefield" class="img-thumbnail img-fluid" width="500" height="600" alt="Blank Image">
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <div class="custom-file">
+                          <input type="file" id="uploadImage" name="image" accept="image/*">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+
+                      <div class="row">
+
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form.recipeName|as_crispy_field }}
+                        </div>
+                      
+                        <div class="form-group col-md-6">
+                          {{ form.category|as_crispy_field }}
+                        </div>
+                      </div>
+
+                      <div class="row">
+
+                        <div class="form-group col-md-12 mb-0">
+                          <div class="non-resize">
+                            {{ form.description|as_crispy_field }}
+                          </div>
+                          
+                        </div>
+                     
+                      </div>
+
+
+                      <div class="row">
+                        <div class="form-group col-md-4">
+                          {{ form.cookTime|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4">
+                          {{ form.servings|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4">
+                          {{ form.difficulty|as_crispy_field }}
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="form-group col-md-12">
+                          {{ form.method|as_crispy_field }}
+                        </div>
+                      </div>
+
+
+                  </div>
+                    
+
+                  <div class="col-md-4 ml-5">
+
+                    <label for= "IngredientInputField" style="text-align: center">Add an Ingredient</label>
+                    
+                    <div class="row" id="IngredientInputField">
+
+                      <div class="form-group col-md-6 mb-0">
+                          <input type="text" class="form-control" id="IngredientNameField" placeholder="Ingredient Name">                          
+                      </div>
+                    
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="IngredientQuantityField" aria-describedby="emailHelp" placeholder="Quantity">                          
+                      </div>
+                    </div>
+                  
+                  
+                    <div class="row justify-content-md-center">
+
+                      <div class ="col-md-auto">
+                        <div class="form-group">
+                          <div class="custom-file">
+                            <input type="button" class="btn btn-primary" id="addIngredientButton" value="Add Ingredient"/> 
+                          </div>
+                            
+                            
+                        </div>
+                      </div>
+  
+                    </div>
+
+                    <div class="row">
+                      <ul class="list-group col-md-12" id="ingredientlist">
+                      </ul>
+                    </div>
+                  
+                  
+                  </div>
+
+                  
+        
+            </div>
+
+            <div class="row justify-content-md-center">
+  
+              <div class ="col-md-auto">
+                <div class="form-group">
+                  <div class="custom-file">
+                    <input class="btn btn-primary" type="button" id="submitRecipe" value="Add Recipe"/> 
+                  </div>
+                    
+                    
+                </div>
+              </div>
+
+            </div>
+            
+              
+              
+      
             </form>
+
         </div>
 {% endblock %}
