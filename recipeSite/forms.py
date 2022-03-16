@@ -35,7 +35,7 @@ class RecipeForm(forms.ModelForm):
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Recipe
-        fields = ('recipeName','category','description','method','cookTime','servings','difficulty','likes','image')
+        fields = ('recipeName','category','description','method','cookTime','servings','difficulty','image')
         widgets = {
         'cookTime' : forms.DurationField,
         'difficulty': forms.Select(),

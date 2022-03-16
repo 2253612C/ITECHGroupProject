@@ -29,7 +29,10 @@ def addRecipe(request):
 
         if form.is_valid():
 
-            recipe=form.save(commit=True)
+            recipe=form.save(commit=False)
+            recipe.author= request.user #associate this recipe with the user who is logged in when this request was made 
+            recipe.save()
+            
             ingredients=request.POST.getlist('ingredients_arr[]')
             
             for ingredient in ingredients: #create a new ingredient in the database for every list item added by the user

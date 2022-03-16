@@ -27,6 +27,7 @@ class Recipe(models.Model):
     (HARD, 'Hard to Make'),
     ]
 
+    #recipe details
     recipeName =  models.CharField(max_length=50, unique=True)
     category =  models.CharField(max_length=20)
     description = models.TextField(max_length=500)
@@ -38,8 +39,12 @@ class Recipe(models.Model):
     servings = models.PositiveIntegerField(default=0)
     likes=models.IntegerField(default=0)
     image=  models.ImageField(upload_to='recipeImages',blank=True)
-    slug=models.SlugField()
     
+    
+    #url
+    slug=models.SlugField()
+    author= models.ForeignKey(User, on_delete=models.CASCADE)
+    submissionDateTime = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.recipeName)
