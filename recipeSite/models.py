@@ -39,6 +39,7 @@ class Recipe(models.Model):
     likes=models.IntegerField(default=0)
     image=  models.ImageField(upload_to='recipeImages',blank=True)
     slug=models.SlugField()
+    
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.recipeName)

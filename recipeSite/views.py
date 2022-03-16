@@ -31,8 +31,10 @@ def addRecipe(request):
 
             recipe=form.save(commit=True)
             ingredients=request.POST.getlist('ingredients_arr[]')
-           
-            print(ingredients)
+            
+            for ingredient in ingredients: #create a new ingredient in the database for every list item added by the user
+                ingred = Ingredient.objects.get_or_create(recipe=recipe,ingredientName=ingredient)[0]
+                ingred.save()
 
             return JsonResponse({
                 'success': True,
