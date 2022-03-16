@@ -22,7 +22,7 @@ Browse Recipes
         <div class="col-md-11">
             <div class="card mb-4 shadow-sm">
                 <img class="bd-placeholder-img card-img-top" width="100%" height="600" src="{{MEDIA_URL}}{{ obj.image }}" ></img>
-                <a style="text-align: center;" href="{% url 'recipeSite:viewRecipe' %}">{{ obj.recipeName }}</a>
+                <a style="text-align: center;" href="{% url 'recipeSite:viewRecipe' obj.slug %}">{{ obj.recipeName }}</a>
                 
               <div class="card-body">
                 <p class="card-text">Submitted by {{ user.username}}</p>

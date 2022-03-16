@@ -19,11 +19,6 @@ def browseRecipe(request):
     return render(request, 'recipeSite/browseRecipe.html',
             context = {'Recipe_list' : Recipe_list})
 
-def viewRecipe(request):
-    
-    return render(request, 'recipeSite/viewRecipe.html',
-            context ={} )
-
 @login_required
 def addRecipe(request):
 
