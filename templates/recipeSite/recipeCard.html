@@ -2,7 +2,6 @@
 {% load staticfiles %}
 <link rel="stylesheet" href="{% static 'css/recipeCard.css' %}">
 {% if recipeList %}
- 
 <div class="album py-5 bg-light">
   <div class="container">
           <div class="row">
@@ -40,7 +39,11 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      {{request.user.username}}
+                      {% if user == recipe.author %}
                       <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                      {% endif %}
                     </div>
                     <div>
 

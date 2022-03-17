@@ -79,7 +79,7 @@ class viewRecipe(View):
 
 @login_required
 def myRecipes(request):
-    recipeList = Recipe.objects.all()
+    recipeList = Recipe.objects.filter(author=request.user)
 
     return render(request, 'recipeSite/myRecipes.html',
             context = {'recipeList' : recipeList})
