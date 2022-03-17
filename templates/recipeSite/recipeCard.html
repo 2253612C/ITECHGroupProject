@@ -47,7 +47,7 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="{% url 'recipeSite:viewRecipe' recipe.slug %}" class="btn btn-sm btn-outline-secondary">View</a>
-                      {% if user == recipe.author %}
+                      {% if user == recipe.author and can_edit_delete %}
                       <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                       <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
                       {% endif %}
