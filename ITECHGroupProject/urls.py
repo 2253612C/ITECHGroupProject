@@ -27,5 +27,6 @@ urlpatterns = [
     path('myAccount/', views.myAccount, name= 'myAccount'),
     path('recipes/', include('recipeSite.urls')),
     path('accounts/', include('registration.backends.simple.urls')),
+    path('profile/<username>/', views.ProfileView.as_view(), name='profile'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

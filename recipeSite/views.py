@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from recipeSite.forms import *
 from django.http import JsonResponse
 from django.views import View
+from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
 
 from recipeSite.models import Ingredient
 
@@ -55,6 +57,8 @@ def addRecipe(request):
 
     return render(request, 'recipeSite/addRecipe.html',context =  {'form' : form})
 
+
+
 class viewRecipe(View):
 
     def getRecipe(self,context_dict,recipe_name_slug):
@@ -75,6 +79,33 @@ class viewRecipe(View):
         context_dict ={}
         self.getRecipe(context_dict,recipe_name_slug)
         return render(request, 'recipeSite/viewRecipe.html', context=context_dict)
+
+class ProfileView(View):
+    def get_user_details(self, username):
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return None
+
+        recipeList = Recipe.objects.filter(author=user)
+
+        return (user, recipeList)
+
+    def get(self, request, username):
+
+        if (username == str(request.user)): #if user clicks on their own recipe, just link back to the myRecipes page
+            return redirect(reverse('recipeSite:myRecipes'))
+            
+        else:
+            try:
+                (user, recipeList) = self.get_user_details(username)
+            
+            except TypeError:
+                return redirect(reverse('recipeSite:index'))
+
+            context_dict = {'selected_user': user,'recipeList': recipeList}
+
+            return render(request, 'recipeSite/profile.html', context_dict)
 
 
 @login_required
