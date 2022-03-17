@@ -14,7 +14,7 @@ def about(request):
     return HttpResponse("This is the about page")
 
 def browseRecipe(request):
-    recipeList = Recipe.objects.order_by('-likes')[:3]
+    recipeList = Recipe.objects.order_by('-likes')
 
     return render(request, 'recipeSite/browseRecipe.html',
             context = {'recipeList' : recipeList})
