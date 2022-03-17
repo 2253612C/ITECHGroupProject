@@ -1,2 +1,9 @@
 {{ object.recipeName }}
 {{ object.description }}
+{{ object.cookTime }}
+{{ object.difficulty }}
+{{ object.image }}
+{{ object.author }}
+{{ object.servings }}
+{{ object.likes }}
+   

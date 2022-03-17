@@ -20,7 +20,7 @@ class Recipe(models.Model):
     EASY='EASY'
     MEDIUM='MEDIUM'
     HARD='HARD'
-        
+
     RECIPE_DIFFICULTY=[
     (EASY, 'Easy to Make'),
     (MEDIUM, 'Moderately Difficult'),
@@ -39,8 +39,8 @@ class Recipe(models.Model):
     servings = models.PositiveIntegerField(default=0)
     likes=models.IntegerField(default=0)
     image=  models.ImageField(upload_to='recipeImages',blank=True)
-    
-    
+
+
     #url
     slug=models.SlugField()
     author= models.ForeignKey(User, on_delete=models.CASCADE)
@@ -52,7 +52,7 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.recipeName
-    
+
 class Comments(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     #whose_comment
