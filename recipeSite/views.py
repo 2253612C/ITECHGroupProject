@@ -63,7 +63,6 @@ class viewRecipe(View):
 
     def getRecipe(self,context_dict,recipe_name_slug):
         try:
-
             recipe = Recipe.objects.get(slug=recipe_name_slug)
             ingredients = Ingredient.objects.filter(recipe=recipe)
         
@@ -92,7 +91,6 @@ class ProfileView(View):
         return (user, recipeList)
 
     def get(self, request, username):
-
         if (username == str(request.user)): #if user clicks on their own recipe, just link back to the myRecipes page
             return redirect(reverse('recipeSite:myRecipes'))
             
@@ -108,6 +106,30 @@ class ProfileView(View):
             return render(request, 'recipeSite/profile.html', context_dict)
 
 
+class BookmarkRecipeView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+
+        recipeID=request.GET['recipe_id']
+
+        try:
+            recipe = Recipe.objects.get(id=int(recipeID))
+
+        except recipe.DoesNotExist:
+            return HttpResponse(-1)
+        
+        except ValueError:
+            return HttpResponse(-1)
+
+        if (recipe.bookmarks.filter(id=request.user.id).exists()): #check if the user has already bookmarked the recipe; if so they want to remove the bookmark
+            recipe.bookmarks.remove(request.user)
+            return HttpResponse("Deleted")
+        else:
+            recipe.bookmarks.add(request.user) #otherwise, they want to add the bookmark
+            recipe.save()
+            return HttpResponse("Bookmarked")
+        
+
 @login_required
 def myRecipes(request):
     recipeList = Recipe.objects.filter(author=request.user)
@@ -117,9 +139,11 @@ def myRecipes(request):
 
 @login_required
 def savedRecipes(request):
-  return render(request, 'recipeSite/savedRecipes.html',
-            context =  {
-            })
+    bookmarkedRecipeList=Recipe.objects.filter(bookmarks=request.user) #get all recipes that have been bookmarked by this user
+
+    return render(request, 'recipeSite/savedRecipes.html',
+            context = {'recipeList' : bookmarkedRecipeList})
+  
 @login_required
 def myAccount(request):
     return render(request, 'recipeSite/myAccount.html',

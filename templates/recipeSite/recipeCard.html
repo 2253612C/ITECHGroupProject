@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load recipe_template_tags %}
 <link rel="stylesheet" href="{% static 'css/recipeCard.css' %}">
 <script src="{% static "js/recipeCard.js" %}" crossorigin="anonymous"></script>
 {% if recipeList %}
@@ -13,7 +14,13 @@
                 <div class="card-body">
                   <div style="text-align: center;">
                     {{ recipe.recipeName }}
-                    <p> <small class="text-muted">Submitted by <a href="{% url 'profile' recipe.author %}">{{ recipe.author }}</a> on {{ recipe.submissionDateTime|date:"d-m-Y" }}</small></p>
+                    <p> <small class="text-muted">Submitted by <a href="{% url 'profile' recipe.author %}">
+                      {% if user == recipe.author %}
+                      You
+                      {% else %}
+                      {{ recipe.author }}
+                      {% endif %}
+                    </a> on {{ recipe.submissionDateTime|date:"d-m-Y" }}</small></p>
                   </div>
                   <div class="description-text">
                     <p class="card-text ">{{ recipe.description}}</p>
@@ -39,7 +46,7 @@
 
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <a href="{% url 'recipeSite:viewRecipe' recipe.slug %}" class="btn btn-sm btn-outline-secondary">View</a>
                       {% if user == recipe.author %}
                       <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                       <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
@@ -51,9 +58,17 @@
                         <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
                       </svg>
                       <small>{{ recipe.likes}}</small>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
-                      </svg>
+                      {% if user.is_authenticated and user != recipe.author %}
+                          {% if user|has_bookmarked:recipe %}
+                          <svg data-categoryid="{{ recipe.id }}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gold" class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
+                          </svg>
+                          {% else %}
+                          <svg data-categoryid="{{ recipe.id }}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
+                          </svg>
+                          {% endif %}
+                      {% endif %}
                     </div>
                   </div>
                 </div>

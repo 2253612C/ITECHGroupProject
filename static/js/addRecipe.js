@@ -111,6 +111,7 @@ $(document).ready(function() {
 
                 if (data.success){
                     window.location.href = data.url;
+                    alert("test");
                 }
                 else{
                     document.write(data.html);

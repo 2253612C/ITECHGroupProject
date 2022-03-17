@@ -46,6 +46,9 @@ class Recipe(models.Model):
     author= models.ForeignKey(User, on_delete=models.CASCADE)
     submissionDateTime = models.DateTimeField(default=timezone.now)
 
+    #user bookmarks
+    bookmarks=models.ManyToManyField(User, related_name="bookmark", default=None,blank=True)
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.recipeName)
         super(Recipe, self).save(*args, **kwargs)

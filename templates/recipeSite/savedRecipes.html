@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 {% extends 'recipeSite/base.html' %}
 {% load staticfiles %}
+{% load recipe_template_tags %}
 
 
 
 {% block title_block %}
 
-Saved Recipes 
+Bookmarked Recipes 
 
 {% endblock %}
     
 {% block body_block %}
-            
+
+<div class="row">
+    <div class="offset-1 mb-5">
+     <h1>Bookmarked Recipes</h1>
+     
+    </div>
+   </br>
+   </div>
+
+
+
+{% draw_recipe_cards recipeList user %}
 
 {% endblock %}
