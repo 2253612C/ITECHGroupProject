@@ -43,7 +43,7 @@ class Recipe(models.Model):
 
     #url
     slug=models.SlugField()
-    author= models.ForeignKey(User, on_delete=models.CASCADE)
+    author= models.ForeignKey(User, on_delete=models.CASCADE) #on deletion of a user, delete the recipes 
     submissionDateTime = models.DateTimeField(default=timezone.now)
 
     #user bookmarks
@@ -57,7 +57,7 @@ class Recipe(models.Model):
         return self.recipeName
 
 class Comments(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE) #on deletion of recipe, delete comments 
     #whose_comment
     submissionDateTime = models.DateTimeField(default=timezone.now)
     content = models.TextField(max_length=500)
@@ -66,7 +66,7 @@ class Comments(models.Model):
         return self.content
 
 class Ingredient(models.Model):
-    recipe=models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipe=models.ForeignKey(Recipe, on_delete=models.CASCADE) #on deletion of recipe, delete ingredients  
     ingredientName = models.CharField(max_length=50)
 
     def __str__(self):

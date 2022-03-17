@@ -128,6 +128,24 @@ class BookmarkRecipeView(View):
             recipe.bookmarks.add(request.user) #otherwise, they want to add the bookmark
             recipe.save()
             return HttpResponse("Bookmarked")
+
+class DeleteRecipeButton(View):
+    @method_decorator(login_required)
+    def get(self, request):
+
+        recipeID=request.GET['recipe_id']
+
+        try:
+            recipe = Recipe.objects.get(id=int(recipeID))
+
+        except recipe.DoesNotExist:
+            return HttpResponse(-1)
+        
+        except ValueError:
+            return HttpResponse(-1)
+
+        recipe.delete()
+        return HttpResponse("Deleted")
         
 
 @login_required

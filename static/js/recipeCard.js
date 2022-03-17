@@ -3,7 +3,7 @@ $(document).ready(function() {
     $(".bi-bookmark-plus-fill").click(function() {
        
         var recipeIdVar;
-        recipeIdVar = $(this).attr('data-categoryid');
+        recipeIdVar = $(this).attr('data-recipeid');
 
         var clickedBookmarkIcon=$(this);
 
@@ -21,6 +21,27 @@ $(document).ready(function() {
 
                 })
     })
+
+
+    $(".btn-outline-danger").click(function() {
+       
+        var recipeIdVar;
+        recipeIdVar = $(this).attr('data-recipeid');
+
+        var clickedRecipe=$(this).closest('.col-md-4'); //get the closest div element for the card which contains the delete button
+        
+        $.get('/recipes/delete/',
+        {'recipe_id': recipeIdVar}, //data sent to view 
+        
+        function(data) { //after the function has been called 
+           
+            clickedRecipe.remove();
+            
+        })
+    })
+
+
+    
 });
 
 
