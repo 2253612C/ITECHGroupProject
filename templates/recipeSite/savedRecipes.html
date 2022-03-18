@@ -16,13 +16,17 @@ Bookmarked Recipes
 <div class="row">
     <div class="offset-1 mb-5">
      <h1>Bookmarked Recipes</h1>
-     
+    </br>
+     <div class="btn-toolbar mb-2 ">
+        <div class="btn-group mr-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'recipeSite:savedRecipes' %}?sort=latest">Latest</a></button>
+          <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'recipeSite:savedRecipes' %}?sort=oldest">Oldest</a></button>
+          <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'recipeSite:savedRecipes' %}?sort=trending">Trending</a></button>
+        </div> 
+      </div>
     </div>
    </br>
    </div>
-
-
-
 {% draw_recipe_cards recipeList user %}
 
 {% endblock %}

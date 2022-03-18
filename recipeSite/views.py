@@ -9,17 +9,53 @@ from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
+from django.urls import resolve
+from django.utils.datastructures import MultiValueDictKeyError
 
 from recipeSite.models import Ingredient
 
 def about(request):
     return HttpResponse("This is the about page")
 
-def browseRecipe(request):
-    recipeList = Recipe.objects.order_by('-likes')
+def sort_recipes(recipeList, request):
+    
+    try:
+        sort_value=request.GET['sort']
 
+        if (sort_value=="trending"):
+            recipeList = recipeList.order_by('-likes')
+        if (sort_value=="latest"):
+            recipeList = recipeList.order_by('-submissionDateTime')
+        if (sort_value=="oldest"):
+            recipeList = recipeList.order_by('submissionDateTime')
+    
+    except MultiValueDictKeyError: #no get request called 'sort' was sent
+        recipeList = recipeList.order_by('-likes') #just default to most likes
+    
+    return recipeList
+
+def browseRecipe(request):
+
+    AllrecipeList=sort_recipes(Recipe.objects.all(),request)
+    
     return render(request, 'recipeSite/browseRecipe.html',
-            context = {'recipeList' : recipeList})
+            context = {'recipeList' : AllrecipeList})
+
+@login_required
+def myRecipes(request):
+
+    userRecipeList=sort_recipes(Recipe.objects.filter(author=request.user),request)
+
+    return render(request, 'recipeSite/myRecipes.html',
+            context = {'recipeList' : userRecipeList})
+
+@login_required
+def savedRecipes(request):
+
+    bookmarkedRecipeList=sort_recipes(Recipe.objects.filter(bookmarks=request.user),request) #get all recipes that have been bookmarked by this user
+   
+    return render(request, 'recipeSite/savedRecipes.html',
+            context = {'recipeList' : bookmarkedRecipeList})
 
 @login_required
 def addRecipe(request):
@@ -147,21 +183,6 @@ class DeleteRecipeButton(View):
         recipe.delete()
         return HttpResponse("Deleted")
         
-
-@login_required
-def myRecipes(request):
-    recipeList = Recipe.objects.filter(author=request.user)
-
-    return render(request, 'recipeSite/myRecipes.html',
-            context = {'recipeList' : recipeList})
-
-@login_required
-def savedRecipes(request):
-    bookmarkedRecipeList=Recipe.objects.filter(bookmarks=request.user) #get all recipes that have been bookmarked by this user
-
-    return render(request, 'recipeSite/savedRecipes.html',
-            context = {'recipeList' : bookmarkedRecipeList})
-  
 @login_required
 def myAccount(request):
     return render(request, 'recipeSite/myAccount.html',
@@ -170,22 +191,3 @@ def myAccount(request):
 
 def restricted(request):
     return HttpResponse("You have to be a registered user to view this page")
-
-def lastestRecipes(request):
-    recipeList = Recipe.objects.filter(author=request.user).order_by('-submissionDateTime')
-
-    return render(request, 'recipeSite/myRecipes.html',
-            context = {'recipeList' : recipeList})
-
-def oldestRecipes(request):
-    recipeList = Recipe.objects.filter(author=request.user).order_by('submissionDateTime')
-
-    return render(request, 'recipeSite/myRecipes.html',
-            context = {'recipeList' : recipeList})
-
-def likeRecipes(request):
-    recipeList = Recipe.objects.filter(author=request.user).order_by('-likes')
-
-    return render(request, 'recipeSite/myRecipes.html',
-            context = {'recipeList' : recipeList})
-

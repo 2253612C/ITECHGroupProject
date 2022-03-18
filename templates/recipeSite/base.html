@@ -20,7 +20,7 @@
     <ul class="top1">
         <li class="logo">MyRecipes</li>
         {% if user.is_authenticated %}
-        <li><a href="{% url 'auth_logout' %}?next={% url 'browseRecipes' %}">Sign-out</a></li>
+        <li><a href="{% url 'auth_logout' %}?next={% url 'recipeSite:browseRecipes' %}">Sign-out</a></li>
         <li><em>|</em></li>
         <li><a href="{% url 'myAccount' %}">My Account</a></li>
         {% else %}
@@ -45,7 +45,7 @@
                 </form>
             </li>
             
-            <li class="menu"><a href="{% url 'browseRecipes' %}" target="-blank" title="home"><img
+            <li class="menu"><a href="{% url 'recipeSite:browseRecipes' %}?sort=trending" target="-blank" title="home"><img
                         src="{% static 'images/home.jpg' %}" alt="Picture of home" height="30"></a></li>
             <li class="menu"><a href="{% url 'recipeSite:savedRecipes' %}">Saved Recipes</a></li>
             <li class="menu"><a href="{% url 'recipeSite:myRecipes' %}">My Recipes</a></li>

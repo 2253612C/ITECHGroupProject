@@ -21,8 +21,6 @@ $(document).ready(function() {
         if (file) {
             reader.readAsDataURL(file);
         }
-
-        user_upload=true;
         }
     )
 
@@ -64,7 +62,7 @@ $(document).ready(function() {
             $('#IngredientQuantityField').css({'border' : '1px solid red'}); //add a red line to show user error
             return false;
         }
-        else if (!user_upload){
+        else if($('#imagefield').attr('src') == "static\images\blankimage.png") {
             alert("Need to upload an Image. (Click on the image box to upload an image)");
             return false;
         }
@@ -111,7 +109,6 @@ $(document).ready(function() {
 
                 if (data.success){
                     window.location.href = data.url;
-                    alert("test");
                 }
                 else{
                     document.write(data.html);

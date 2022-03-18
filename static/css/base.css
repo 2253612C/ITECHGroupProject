@@ -78,7 +78,7 @@ em{
     box-sizing: border-box;
     padding-left: 10px;
     border-radius: 20px;
-    width: 200px;
+    width: 20em;
     border: 1px solid #e2e2e2;
     background-image: url(/static/images/search.jpg);
     background-repeat: no-repeat;
@@ -100,14 +100,14 @@ em{
     font-size: 14px;
 }
 #search{
-    width: 78px;
+    width: 10em;
     height: 32px;
-    float: right;
     background: black;
     color: white;
     text-align: center;
     line-height: 32px;
     cursor: pointer;
+    padding: 0px;
 }
 
 
