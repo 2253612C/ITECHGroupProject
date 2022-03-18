@@ -16,14 +16,17 @@ Browse Recipes
     <div class="offset-1 mb-5">
      <h1>Browse Recipes</h1>
     </br>
-     <div class="btn-toolbar mb-2 ">
-        <div class="btn-group mr-2">
-          <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'recipeSite:browseRecipes' %}?sort=latest">Latest</a></button>
-          <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'recipeSite:browseRecipes' %}?sort=oldest">Oldest</a></button>
-          <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'recipeSite:browseRecipes' %}?sort=trending">Trending</a></button>
-          <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'recipeSite:browseRecipes' %}?sort=cookTime">Cook Time</a></button>
-          <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'recipeSite:browseRecipes' %}?sort=servings">Serving Size</a></button>
-        </div> 
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Sort By
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="{% url 'recipeSite:browseRecipes' %}?sort=latest">Latest</a>
+          <a class="dropdown-item" href="{% url 'recipeSite:browseRecipes' %}?sort=oldest">Oldest</a>
+          <a class="dropdown-item" href="{% url 'recipeSite:browseRecipes' %}?sort=trending">Trending</a>
+          <a class="dropdown-item" href="{% url 'recipeSite:browseRecipes' %}?sort=cookTime">Cook Time</a>
+          <a class="dropdown-item" href="{% url 'recipeSite:browseRecipes' %}?sort=servings">Serving Size</a>
+        </div>
       </div>
     </div>
    </br>
