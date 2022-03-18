@@ -28,6 +28,10 @@ def sort_recipes(recipeList, request):
             recipeList = recipeList.order_by('-submissionDateTime')
         if (sort_value=="oldest"):
             recipeList = recipeList.order_by('submissionDateTime')
+        if (sort_value=="cookTime"):
+            recipeList = recipeList.order_by('cookTime')
+        if (sort_value=="servings"):
+            recipeList = recipeList.order_by('-servings')
     
     except MultiValueDictKeyError: #no get request called 'sort' was sent
         recipeList = recipeList.order_by('-likes') #just default to most likes

@@ -32,7 +32,7 @@ class Recipe(models.Model):
     category =  models.CharField(max_length=20)
     description = models.TextField(max_length=500)
     method = models.TextField(max_length=500)
-    cookTime = models.IntegerField(default=0)
+    cookTime = models.PositiveIntegerField(default=0)
     difficulty = models.CharField(max_length=6 ,
                                   choices=RECIPE_DIFFICULTY,
                                    default=EASY)
