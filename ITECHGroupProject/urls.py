@@ -24,9 +24,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.browseRecipe, name= 'index'),
     path('admin/', admin.site.urls),
-    path('myAccount/', views.myAccount, name= 'myAccount'),
+    
     path('recipes/', include('recipeSite.urls')),
     path('accounts/', include('registration.backends.simple.urls')),
+    path('accounts/myAccount/', views.myAccount, name= 'myAccount'),
     path('profile/<username>/', views.ProfileView.as_view(), name='profile'),
+    path('accounts/deleteAccount/', views.deleteAccount.as_view(), name='deleteAccount'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

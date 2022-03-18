@@ -13,8 +13,6 @@ from django.utils.datastructures import MultiValueDictKeyError
 
 from recipeSite.models import Ingredient
 
-def about(request):
-    return HttpResponse("This is the about page")
 
 def sort_recipes(recipeList, request):
     
@@ -116,42 +114,53 @@ class editRecipe(View):
 
     @method_decorator(login_required)
     def get(self, request,recipe_name_slug):
+
         context_dict=getRecipe(recipe_name_slug)
-        form = RecipeForm(instance=context_dict['recipe'])
-        context_dict['form'] = form
-        return render(request, 'recipeSite/addRecipe.html', context=context_dict)
+
+        if (context_dict['recipe'].author == request.user):
+            form = RecipeForm(instance=context_dict['recipe'])
+            context_dict['form'] = form
+            return render(request, 'recipeSite/addRecipe.html', context=context_dict)
+
+        else:
+            return HttpResponse("You are not allowed to edit this page.")
 
     @method_decorator(login_required)
     def post(self,request,recipe_name_slug):
         context_dict=getRecipe(recipe_name_slug)
         
-        form=RecipeForm(request.POST,request.FILES,instance=context_dict['recipe'])
+        if (context_dict['recipe'].author == request.user):
+
+            form=RecipeForm(request.POST,request.FILES,instance=context_dict['recipe'])
+            
+            if form.is_valid():
+
+                recipe=form.save(commit=True) 
+                
+                ingredients=request.POST.getlist('ingredients_arr[]')
+                print(ingredients)
+
+                Ingredient.objects.filter(recipe=recipe).delete() #delete current ingredients for this recipe
+                
+                for ingredient in ingredients: #create new ingredients
+                    ingred = Ingredient.objects.get_or_create(recipe=recipe,ingredientName=ingredient)[0]
+                    ingred.save()
+
+                return JsonResponse({
+                    'success': True,
+                    'url': reverse('recipeSite:viewRecipe',kwargs={'recipe_name_slug': recipe.slug}),
+                })
+
+            else:
+                print(form.errors)
+                html = render_to_string('recipeSite/addRecipe.html',context =  {'form' : form})
+                return JsonResponse({
+                    'success': False,
+                    'html': html,
+                })
         
-        if form.is_valid():
-
-            recipe=form.save(commit=True) 
-            
-            ingredients=request.POST.getlist('ingredients_arr[]')
-            print(ingredients)
-
-            Ingredient.objects.filter(recipe=recipe).delete() #delete current ingredients for this recipe
-            
-            for ingredient in ingredients: #create new ingredients
-                ingred = Ingredient.objects.get_or_create(recipe=recipe,ingredientName=ingredient)[0]
-                ingred.save()
-
-            return JsonResponse({
-                'success': True,
-                'url': reverse('recipeSite:viewRecipe',kwargs={'recipe_name_slug': recipe.slug}),
-            })
-
         else:
-            print(form.errors)
-            html = render_to_string('recipeSite/addRecipe.html',context =  {'form' : form})
-            return JsonResponse({
-                'success': False,
-                'html': html,
-            })
+            return HttpResponse("You are not allowed to edit this page.")
 
 class viewRecipe(View):
 
@@ -232,5 +241,27 @@ def myAccount(request):
             context =  {
             })
 
-def restricted(request):
-    return HttpResponse("You have to be a registered user to view this page")
+class deleteAccount(View):
+
+    @method_decorator(login_required)
+    def get(self, request):
+
+        return render(request, 'registration/deleteAccount.html',
+            context =  {
+            })
+
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        if (request.POST.get("delete")):
+
+            User.objects.get(username=request.user.username).delete()
+
+            logout(request)
+
+            return redirect(reverse('recipeSite:browseRecipes'))
+            
+        elif(request.POST.get("cancel")):
+                
+            return redirect(reverse('myAccount'))
