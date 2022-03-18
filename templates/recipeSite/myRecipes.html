@@ -14,7 +14,14 @@ My Recipes
 <div class="row">
     <div class="offset-1 mb-5">
      <h1>Your Recipes</h1>
-     
+    </br>
+     <div class="btn-toolbar mb-2 ">
+        <div class="btn-group mr-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'recipeSite:lastestRecipes' %}">Lastest</a></button>
+          <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'recipeSite:oldestRecipes' %}">Oldest</a></button>
+          <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'recipeSite:likeRecipes' %}">Trending</a></button>
+        </div> 
+      </div>
     </div>
    </br>
    </div>

@@ -170,3 +170,22 @@ def myAccount(request):
 
 def restricted(request):
     return HttpResponse("You have to be a registered user to view this page")
+
+def lastestRecipes(request):
+    recipeList = Recipe.objects.filter(author=request.user).order_by('-submissionDateTime')
+
+    return render(request, 'recipeSite/myRecipes.html',
+            context = {'recipeList' : recipeList})
+
+def oldestRecipes(request):
+    recipeList = Recipe.objects.filter(author=request.user).order_by('submissionDateTime')
+
+    return render(request, 'recipeSite/myRecipes.html',
+            context = {'recipeList' : recipeList})
+
+def likeRecipes(request):
+    recipeList = Recipe.objects.filter(author=request.user).order_by('-likes')
+
+    return render(request, 'recipeSite/myRecipes.html',
+            context = {'recipeList' : recipeList})
+
