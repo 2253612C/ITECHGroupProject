@@ -1,22 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
 from datetime import datetime
-from recipeSite.models import UserProfile,Recipe,Comments
+from recipeSite.models import Recipe,Comments
 from django.db import models
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
-
-class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password',)
-
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('picture',)
 
 
 class RecipeForm(forms.ModelForm):
@@ -43,9 +31,6 @@ class RecipeForm(forms.ModelForm):
         #'recipeName':forms.TextInput( attrs={ 'class': 'form-control', 'placeholder': 'Title', 'required': True, } ),
         
         }
-
-    
-
 
 
 class CommentsForm(forms.ModelForm):

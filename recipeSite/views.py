@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect,reverse
 from django.template.loader import render_to_string
 from django.http import HttpResponse
-from recipeSite.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
 from recipeSite.forms import *
