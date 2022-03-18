@@ -33,6 +33,6 @@ input[type="file"] {
 
 .deleteIngredient{
 
-  margin-left: 80%;
+  float: right;
 
 }

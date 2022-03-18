@@ -60,12 +60,17 @@ def savedRecipes(request):
     return render(request, 'recipeSite/savedRecipes.html',
             context = {'recipeList' : bookmarkedRecipeList})
 
-@login_required
-def addRecipe(request):
 
-    form=RecipeForm()
+class AddRecipe(View):
 
-    if request.method == 'POST':
+    @method_decorator(login_required)
+    def get(self, request):
+        form=RecipeForm()
+        return render(request, 'recipeSite/addRecipe.html',context =  {'form' : form})
+
+    @method_decorator(login_required)
+    def post(self,request):
+
         form=RecipeForm(request.POST,request.FILES)
 
         if form.is_valid():
@@ -75,7 +80,6 @@ def addRecipe(request):
             recipe.save()
             
             ingredients=request.POST.getlist('ingredients_arr[]')
-            
             for ingredient in ingredients: #create a new ingredient in the database for every list item added by the user
                 ingred = Ingredient.objects.get_or_create(recipe=recipe,ingredientName=ingredient)[0]
                 ingred.save()
@@ -93,14 +97,8 @@ def addRecipe(request):
                 'html': html,
             })
 
-
-    return render(request, 'recipeSite/addRecipe.html',context =  {'form' : form})
-
-
-
-class viewRecipe(View):
-
-    def getRecipe(self,context_dict,recipe_name_slug):
+def getRecipe(recipe_name_slug):
+        context_dict={}
         try:
             recipe = Recipe.objects.get(slug=recipe_name_slug)
             ingredients = Ingredient.objects.filter(recipe=recipe)
@@ -108,14 +106,57 @@ class viewRecipe(View):
             context_dict['recipe'] = recipe
             context_dict['ingredients'] = ingredients
 
-        except Recipe.DoesNotExist:
-        
+        except Recipe.DoesNotExist: 
             context_dict['recipe'] = None
             context_dict['ingredients'] = None
 
+        return context_dict
+
+class editRecipe(View):
+
+    @method_decorator(login_required)
     def get(self, request,recipe_name_slug):
-        context_dict ={}
-        self.getRecipe(context_dict,recipe_name_slug)
+        context_dict=getRecipe(recipe_name_slug)
+        form = RecipeForm(instance=context_dict['recipe'])
+        context_dict['form'] = form
+        return render(request, 'recipeSite/addRecipe.html', context=context_dict)
+
+    @method_decorator(login_required)
+    def post(self,request,recipe_name_slug):
+        context_dict=getRecipe(recipe_name_slug)
+        
+        form=RecipeForm(request.POST,request.FILES,instance=context_dict['recipe'])
+        
+        if form.is_valid():
+
+            recipe=form.save(commit=True) 
+            
+            ingredients=request.POST.getlist('ingredients_arr[]')
+            print(ingredients)
+
+            Ingredient.objects.filter(recipe=recipe).delete() #delete current ingredients for this recipe
+            
+            for ingredient in ingredients: #create new ingredients
+                ingred = Ingredient.objects.get_or_create(recipe=recipe,ingredientName=ingredient)[0]
+                ingred.save()
+
+            return JsonResponse({
+                'success': True,
+                'url': reverse('recipeSite:viewRecipe',kwargs={'recipe_name_slug': recipe.slug}),
+            })
+
+        else:
+            print(form.errors)
+            html = render_to_string('recipeSite/addRecipe.html',context =  {'form' : form})
+            return JsonResponse({
+                'success': False,
+                'html': html,
+            })
+
+class viewRecipe(View):
+
+    def get(self, request,recipe_name_slug):
+        context_dict=getRecipe(recipe_name_slug)
         return render(request, 'recipeSite/viewRecipe.html', context=context_dict)
 
 class ProfileView(View):
@@ -165,7 +206,6 @@ class BookmarkRecipeView(View):
             return HttpResponse("Deleted")
         else:
             recipe.bookmarks.add(request.user) #otherwise, they want to add the bookmark
-            recipe.save()
             return HttpResponse("Bookmarked")
 
 class DeleteRecipeButton(View):
