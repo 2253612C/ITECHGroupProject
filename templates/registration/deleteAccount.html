@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends 'recipeSite/base.html' %}
+{% block title_block %}
+Account Deletion
+{% endblock %}
+{% block body_block %}
+<h1>Account Deletion</h1>
+<form method="post">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    <p>Are you sure you want to delete your account?</p>
+    <input type="submit" name="delete"value="Confirm">
+    <input type="submit" name="cancel" value="Cancel">
+    {% endif %}
+</form>
+{% endblock %}
