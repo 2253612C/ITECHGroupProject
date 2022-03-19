@@ -1,6 +1,8 @@
 db.sqlite3
 __pycache__/
 **.pyc
-rango/tests*.py
 **.seg
+ITECHGroupProject/whoosh_index
+recipeSite/migrations
+
 
