@@ -56,6 +56,8 @@ $(document).ready(function() {
 
     $('#submitRecipe').click(function(){
 
+        var str=$('#imagefield').attr('src');
+
         if (!$("#recipeForm")[0].checkValidity()){
             $('#recipeForm')[0].reportValidity();
         }
@@ -65,7 +67,7 @@ $(document).ready(function() {
             $('#IngredientQuantityField').css({'border' : '1px solid red'}); //add a red line to show user error
             return false;
         }
-        else if($('#imagefield').attr('src') == "static\images\blankimage.png") {
+        else if($('#imagefield').attr('src') == "/static/images/blankimage.png") {
             alert("Need to upload an Image. (Click on the image box to upload an image)");
             return false;
         }
