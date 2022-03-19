@@ -42,7 +42,7 @@ SECRET_KEY = '@!x1may7xc0+qdrzhmvkbq8wol&e=%@gs6!^99h0j9m8z%%!eq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['myRecipes.pythonanywhere.com']
 
 
 # Application definition
