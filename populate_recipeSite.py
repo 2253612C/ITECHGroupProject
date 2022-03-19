@@ -11,7 +11,7 @@ from django.utils import timezone
 import datetime
 
 
-def populate(): 
+def populate():
 
     user1=create_user("user_1",'123')
     user2=create_user("user_2",'123')
@@ -40,11 +40,11 @@ def populate():
         'content':'Really easy and perfect dinner for a family, super delicious too!'},
     ]
 
-    
+
 
     recipes = {
         'lemon baked cheesecake':
-        
+
         {'comments':lemon_baked_cheesecake_comments,
          'author' : user1,
         'category':'Dessert',
@@ -57,7 +57,7 @@ def populate():
         'image':"recipeImages\lemon.jpg",
         'ingredients' : { 'icing sugar, 25g','digestive biscuits 250g','butter, 100g melted',},
         'submissionDateTime':'2022-03-12'
-                        
+
         },
 
         'Cod with butter bean colcannon':
@@ -74,7 +74,7 @@ def populate():
         'ingredients' : { 'cod fillet, 2','butter, 200g'},
         'submissionDateTime': '2022-03-14',
         },
-        
+
         'Tomato penne with avocado':
         {'comments':Tomato_penne_with_avocado_comments,
          'author' : user3,
@@ -91,19 +91,18 @@ def populate():
         }
     }
 
-    print(recipes["Cod with butter bean colcannon"])
 
     for recipe, recipe_data in recipes.items():
         rec = add_recipe(recipe, recipe_data)
-        
+
         for ing in recipe_data['ingredients']:
-            add_ingredient(ing,rec)   
-        
+            add_ingredient(ing,rec)
+
         for com in recipe_data['comments']:
             for comment in com:
                 add_comments(rec, com['submissionDateTime'], com['content'])
 
-    
+
 
 
 def add_recipe(name,recipe_data):
@@ -139,7 +138,7 @@ def create_user(username,password):
     if (created):
         user.set_password(password)
         user.save()
-    
+
     return user
 
 if __name__ == '__main__':
