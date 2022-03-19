@@ -35,9 +35,10 @@ LOGIN_URL = 'auth_login'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@!x1may7xc0+qdrzhmvkbq8wol&e=%@gs6!^99h0j9m8z%%!eq'
+key = None
+with open('secret.key') as f:
+    key = f.read().strip()
+SECRET_KEY = key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
