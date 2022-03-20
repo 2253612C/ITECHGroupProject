@@ -49,7 +49,7 @@ class Recipe(models.Model):
 
 class Comments(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE) #on deletion of recipe, delete comments 
-    #whose_comment
+    author= models.ForeignKey(User, on_delete=models.CASCADE) #on deletion of a user, delete their comments 
     submissionDateTime = models.DateTimeField(default=timezone.now)
     content = models.TextField(max_length=500)
 

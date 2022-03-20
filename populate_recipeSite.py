@@ -18,25 +18,32 @@ def populate():
     user3=create_user("user_3",'123')
 
     lemon_baked_cheesecake_comments = [
-        {'submissionDateTime':'23:24:13',
+        {'submissionDateTime':'2022-03-13',
+        'author' : user2,
         'content':'I have made this recipe twice and it is really tasty. Everyone loves it. Now I am making it again. This time with a Morello cherry compote topping.'},
-        {'submissionDateTime':'12:43:53',
+        {'submissionDateTime':'2022-03-14',
+        'author' : user3,
         'content':'Is it possible to make this ahead of time and refrigerate for a day or two? Or should this be made on the day only?'},
     ]
 
     Cod_with_butter_bean_colcannon_comments = [
-        {'submissionDateTime':'18:43:57',
+        {'submissionDateTime':'2022-03-14',
+        'author' : user1,
         'content':'Just made this and it is absolutely delicious. I used brussel sprouts shredded very finely as I had loads that needed using up , will definitely make again'},
-        {'submissionDateTime':'07:33:27',
+        {'submissionDateTime':'2022-03-15',
+        'author' : user3,
         'content':'Love this recipe, so simple and tasty. I’ve made it many times, I use 1/2 a tin extra of beans!'},
     ]
 
     Tomato_penne_with_avocado_comments = [
-        {'submissionDateTime':'14:54:33',
+        {'submissionDateTime':'2022-03-17',
+        'author' : user2,
         'content':'what else can I use instead of red pepper?'},
-        {'submissionDateTime':'09:05:22',
+        {'submissionDateTime':'2022-03-18',
+        'author' : user2,
         'content':'Loved this. Halved everything for one and it was delicious. Will definitely make again'},
-        {'submissionDateTime':'22:15:52',
+        {'submissionDateTime':'2022-03-18',
+        'author' : user3,
         'content':'Really easy and perfect dinner for a family, super delicious too!'},
     ]
 
@@ -100,7 +107,7 @@ def populate():
 
         for com in recipe_data['comments']:
             for comment in com:
-                add_comments(rec, com['submissionDateTime'], com['content'])
+                add_comments(rec, com['submissionDateTime'], com['content'],com['author'])
 
 
 
@@ -119,9 +126,9 @@ def add_recipe(name,recipe_data):
     r.save()
     return r
 
-def add_comments(rec,submissionDateTime,content):
-    c = Comments.objects.get_or_create(recipe=rec)[0]
-    c.submissionDateTime = timezone.now()
+def add_comments(rec,submissionDateTime,content,author):
+    c = Comments.objects.get_or_create(recipe=rec,author=author)[0]
+    c.submissionDateTime = submissionDateTime
     c.content = content
     c.save()
     return c
