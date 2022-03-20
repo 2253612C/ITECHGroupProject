@@ -10,6 +10,7 @@ urlpatterns = [
    path('browse/', views.browseRecipe, name= 'browseRecipes'),
    path('savedRecipes/', views.savedRecipes, name= 'savedRecipes'),
    path('addRecipe/', views.AddRecipe.as_view(), name= 'addRecipe'),
+   path('addComment/', views.AddComment.as_view(), name= 'addComment'),
    path('search/', SearchView(), name='haystack_search'),
    path('bookmark/', views.BookmarkRecipeView.as_view(), name='bookmark'),
    path('delete/', views.DeleteRecipeButton.as_view(), name='delete'),

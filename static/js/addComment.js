@@ -9,10 +9,10 @@ $(document).ready(function() {
         {
     
             var content=$('#id_content').val();
-
+            // var submissionDateTime=$('#id_submissionDateTime').val();
             var data= new FormData();
             data.append('content', content);
-    
+            // data.append('content', submissionDateTime);
             data.append('csrfmiddlewaretoken',$('input[name=csrfmiddlewaretoken]').val());
             
       
@@ -26,7 +26,7 @@ $(document).ready(function() {
             }).done(function (data){
     
                 if (data.success){
-                    alert("success");
+                    window.location.href = data.url;
                 }
                 else{
                     document.write(data.html);

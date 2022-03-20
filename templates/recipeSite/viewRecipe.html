@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 {% extends 'recipeSite/base.html' %}
-{% load staticfiles %}
+
+
 {% load recipe_template_tags %}
 {% include 'bootstrap4/layout/help_text_and_errors.html' %}
 {% load crispy_forms_tags %}
+
+{% load staticfiles %}
 
 {% block title_block %}
 View Recipes 
@@ -153,9 +156,9 @@ View Recipes
                             <div>
                                 <form id="CommentsForm" method="post"  enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    {{ form.content|as_crispy_field }}
+                                    {{form.as_p}}
                                     <textarea type="text" class="form-control" cols="150" rows="2" id="content"  placeholder="Hey bro say something here ~"></textarea> 
-                                    <input class="btn btn-primary" type="button" id="submitComment" value="Add comment"/>
+                                    <input class="btn btn-primary" type="submit" id="submitComment" value="Add comment"/>
                                 </form>
                                 
                             </div>
