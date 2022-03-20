@@ -2,8 +2,6 @@
 {% extends 'recipeSite/base.html' %}
 {% load staticfiles %}
 
-
-
 {% block title_block %}
 
 View Recipes 
@@ -11,81 +9,78 @@ View Recipes
 {% endblock %}
     
 {% block body_block %}
-    picture
-    ingredient
-    description
-    title
-    comments
-    time difct icons
-    bookmark likes
 
-    <link rel="stylesheet" href="{% static 'css/addRecipe.css' %}">
+    {% if recipe %}
+        
+        <div class="container-fluid">
 
-    <div class="container-fluid">
+            <div class="row ">
+                <div class="bg-info col">
 
-        <div class="row">
-            <div class="offsetRight-1 mb-5">wewe</div>
-        </div>
-
-        <div class="row ">
-            <div class="bg-info offset-1 col">
-
-                <div class="row mb-3">
-                    <div class="picture">
-                        <label for= "imagefield">
-                            picture
-                        </label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="icons">
-                        icons
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="ingredient">
-                        ingredient
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="bg-info col offsetRight-5 mr-5">
-
-                <div class="row">
-                    <div class="bg-primary col-md-8 mb-5">
-                        <div class="row-md-6"> 
-                            <h3>title</h3>
-                        </div>
-                        <div class="bg-secondary row-md-4">
-                            author
-                        </div>
-                        <div class="bg-secondary col-md-4">
-                            discription
+                    <div class="row justify-content-md-center mb-3">
+                        <div class="picture">
+                            <img src="{{ recipe.image.url }}" id="imagefield" class="img-thumbnail img-fluid" width="500" height="600" alt="Blank Image">
                         </div>
                     </div>
-                    <div class="bg-secondary col-md-4 mb-5">
-                        like & book
-                    </div> 
-                </div>
 
-                <div class="row">
-                    <div class="bg-secondary col-md-4">
-                        steps
+                    <div class="row mb-3">
+                        <div class="icons">
+                            Timing Difficulty icons
+                        </div>
                     </div>
                     
-                </div>
-      
-                <div class="row justify-content-md-center">
-                    <div class="col-md-*">
-                        comments
+                    <div class="row mb-3">
+                        <div class="ingredient">
+                            ingredients
+                            {{ingredient.text}} 
+                        </div>
                     </div>
+
                 </div>
 
-            </div>
-                     
-        </div>
+                <div class="bg-info col offsetRight-5 mr-5">
 
-    </div>
-    
+                    <div class="row">
+                        <div class="bg-primary col-md-8 mb-5">
+
+                            <div class="row-md-6">   
+                                <h3>{{recipe.recipeName}}</h3>
+                            </div>
+
+                            <div class="bg-secondary row-md-4">
+                                <h5>{{recipe.author}}</h5>
+                            </div>
+
+                        </div>
+                        
+                        <div class="bg-secondary col mb-5">
+                            like & book
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="bg-secondary col mb-5">
+                            {{recipe.description}} 
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="bg-secondary col mb-5">
+                            {{recipe.method}}  method
+                        </div>
+                        
+                    </div>
+        
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-* mb-5">
+                            {{recipe.comments}} comments
+                        </div>
+                    </div>
+
+                </div>
+                        
+            </div>
+
+        </div>
+    {% else %}
+        <h3>Recipe was eaten by zombie! Ehh</h3>
+    {% endif %}
 {% endblock %}
