@@ -41,7 +41,7 @@ $(document).ready(function() {
     })
 
 
-    $('.likeButton').click(function() { //like button on recipe card
+    $('.btn-like').click(function() {
         var recipeIdVar;
         recipeIdVar = $(this).attr('data-recipeid'); //get clicked recipe 
 
@@ -53,6 +53,8 @@ $(document).ready(function() {
                 clickedLikeButton.children('.visually-hidden').text(data); //update the like number
                 clickedLikeButton.removeClass('btn btn-outline-secondary').addClass('btn btn-outline-warning'); //changed the button from normal color to yellow
                 clickedLikeButton.css("pointer-events","none"); //make the button non-clickable 
+                // $('.btn-like-num').html(data);
+                // $('.btn-like').hide();
             })
     });
 });

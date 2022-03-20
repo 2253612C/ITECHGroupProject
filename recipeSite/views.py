@@ -266,8 +266,8 @@ class deleteAccount(View):
                 
             return redirect(reverse('myAccount'))
 
-class LikeCategoryView(View):
-    
+class LikeButtonView(View):
+    @method_decorator(login_required)
     def get(self, request):
         recipeID = request.GET['recipe_id']
         try:
@@ -277,7 +277,6 @@ class LikeCategoryView(View):
             return HttpResponse(-1)
         except ValueError:
             return HttpResponse(-1)
-        
         recipe.likes = recipe.likes + 1
         recipe.save()
         return HttpResponse(recipe.likes)
