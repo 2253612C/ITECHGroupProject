@@ -131,34 +131,42 @@ View Recipes
                         </div> 
                     </div>
                     <div class="row">
+                        
                         <div class=" col ml-0 mb-5">
-                            <h5>Description</h5>
+                            <h5>Description</h5><br>
                             <p>{{recipe.description}}</p>
                         </div> 
                     </div>
                     <div class="row">
+                        
                         <div class=" col ml-0 mb-5">
-                            <h5>Cooking Steps</h5>
+                            <h5>Cooking Steps</h5><br>
                             <p>{{recipe.method}}</p>
                         </div>
                         
                     </div>
         
                     <div class=" row justify-content-md-center mr-3" >
+                          <h5>Comments</h5>
+                        
                         <div class="col-md-* ml-0 mb-5">
-                            <h5>Comments</h5>
-                            
-
+                            <div>
+                                <form id="CommentsForm" method="post" action="." enctype="multipart/form-data">
+                                    <textarea type="text" class="form-control" cols="150" rows="2" id="addComment"  placeholder="Hey bro say something here ~"></textarea> 
+                                    <input class="btn btn-primary" type="button" id="submitComment" value="Add comment"/>
+                                </form>
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-* ml-0 mb-5">
                             {% if comments %}
-
                                 {% for comment in comments %}
                                     <p> {{ comment.content }}</p>
                                 {% endfor %}
-
                             {% else %}
                                 <h3>no one write any comment here</h3>
                             {% endif %}
-                                
+                       
                         </div>
                     </div>
 
