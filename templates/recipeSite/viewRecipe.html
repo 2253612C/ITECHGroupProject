@@ -2,7 +2,7 @@
 {% extends 'recipeSite/base.html' %}
 {% load staticfiles %}
 {% load recipe_template_tags %}
-<script src="{% static "js/recipeCard.js" %}" crossorigin="anonymous"></script>
+
 {% block title_block %}
 
 View Recipes 
@@ -10,7 +10,8 @@ View Recipes
 {% endblock %}
     
 {% block body_block %}
-
+    <link rel="stylesheet" href="{% static 'css/viewRecipe.css' %}">
+    <script src="{% static "js/recipeCard.js" %}" crossorigin="anonymous"></script>
     {% if recipe %}
         
         <div class="container-fluid">
@@ -57,13 +58,19 @@ View Recipes
                             </div>
                     </div>
                     
-                    <div class="row mb-3">
+                    <div class="row-md-4  ml-5">
                         <div class="ingredients">
-                            <h5>Ingredients</h5>
+                            <h5>Ingredients</h5> <br>
                                 {% if ingredients %}
+                                <p>
                                     {% for ingredient in ingredients %}
                                         {{ ingredient.ingredientName }}
                                     {% endfor %}
+                                </p>
+                                        
+                                    
+                                    
+                                    
                                 {% else %}
                                     <h3>None ingredients description</h3>
                                 {% endif %}
@@ -75,7 +82,7 @@ View Recipes
                 <div class=" col offsetRight-5 mr-5">
 
                     <div class="row">
-                        <div class="bg-info col-md-8 mb-5">
+                        <div class=" col-md-8 ml-0 mb-5">
 
                             <div class="row-md-6">
                                 <h3>{{recipe.recipeName}}</h3>
@@ -87,7 +94,7 @@ View Recipes
 
                         </div>
                         
-                        <div class=" col mb-5">
+                        <div class=" col mr-3 mb-5">
                             {% if user != recipe.author %}
                                 <button type="button" data-recipeid="{{ recipe.id }}" class="btn btn-outline-secondary likeButton">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -125,31 +132,35 @@ View Recipes
                         </div> 
                     </div>
                     <div class="row">
-                        <div class="bg-secondary col mb-5">
+                        <div class=" col ml-0 mb-5">
                             <h5>Description</h5>
-                            {{recipe.description}} 
+                            <p>{{recipe.description}}</p>
                         </div> 
                     </div>
                     <div class="row">
-                        <div class="bg-secondary col mb-5">
+                        <div class=" col ml-0 mb-5">
                             <h5>Cooking Steps</h5>
-                            {{recipe.method}}
+                            <p>{{recipe.method}}</p>
                         </div>
                         
                     </div>
         
-                    <div class="row justify-content-md-center">
-                        <div class="col-md-* mb-5">
-                            add comments
-                            {{ comments.content }}
+                    <div class=" row justify-content-md-center mr-3" >
+                        <div class="col-md-* ml-0 mb-5">
+                            <h5>Comments</h5>
+                            <button>add comments</button>
+                            
+                            
                             {% if comments %}
-                                    {% for comment in comments %}
-                                        {{ comment.content }}
-                                    {% endfor %}
-                                {% else %}
-                                    <h3>no one write any comment here</h3>
-                                {% endif %}
 
+                                {% for comment in comments %}
+                                    <p> {{ comment.content }}</p>
+                                {% endfor %}
+
+                            {% else %}
+                                <h3>no one write any comment here</h3>
+                            {% endif %}
+                                
                         </div>
                     </div>
 
@@ -159,6 +170,6 @@ View Recipes
 
         </div>
     {% else %}
-        <h3>Recipe was eaten by zombie! Ehh</h3>
+        <h3>Recipe was eaten by zombie! oh HAH</h3>
     {% endif %}
 {% endblock %}

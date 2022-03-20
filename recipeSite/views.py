@@ -100,13 +100,15 @@ def getRecipe(recipe_name_slug):
         try:
             recipe = Recipe.objects.get(slug=recipe_name_slug)
             ingredients = Ingredient.objects.filter(recipe=recipe)
-        
+            comments = Comments.objects.filter(recipe=recipe)
             context_dict['recipe'] = recipe
             context_dict['ingredients'] = ingredients
+            context_dict['comments'] = comments
 
         except Recipe.DoesNotExist: 
             context_dict['recipe'] = None
             context_dict['ingredients'] = None
+            context_dict['comments'] = None
 
         return context_dict
 
