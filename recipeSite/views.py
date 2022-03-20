@@ -19,7 +19,7 @@ def sort_recipes(recipeList, request):
     try:
         sort_value=request.GET['sort']
 
-        if (sort_value=="trending"):
+        if (sort_value=="mostPopular"):
             recipeList = recipeList.order_by('-likes')
         if (sort_value=="latest"):
             recipeList = recipeList.order_by('-submissionDateTime')
