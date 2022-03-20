@@ -10,6 +10,7 @@ View Recipes
 {% endblock %}
     
 {% block body_block %}
+
     <link rel="stylesheet" href="{% static 'css/viewRecipe.css' %}">
     <script src="{% static "js/recipeCard.js" %}" crossorigin="anonymous"></script>
     {% if recipe %}
@@ -67,10 +68,7 @@ View Recipes
                                         {{ ingredient.ingredientName }}
                                     {% endfor %}
                                 </p>
-                                        
-                                    
-                                    
-                                    
+                                                   
                                 {% else %}
                                     <h3>None ingredients description</h3>
                                 {% endif %}
@@ -148,9 +146,8 @@ View Recipes
                     <div class=" row justify-content-md-center mr-3" >
                         <div class="col-md-* ml-0 mb-5">
                             <h5>Comments</h5>
-                            <button>add comments</button>
                             
-                            
+
                             {% if comments %}
 
                                 {% for comment in comments %}
