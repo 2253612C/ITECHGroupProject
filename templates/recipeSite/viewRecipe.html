@@ -2,11 +2,11 @@
 {% extends 'recipeSite/base.html' %}
 {% load staticfiles %}
 {% load recipe_template_tags %}
+{% include 'bootstrap4/layout/help_text_and_errors.html' %}
+{% load crispy_forms_tags %}
 
 {% block title_block %}
-
 View Recipes 
-
 {% endblock %}
     
 {% block body_block %}
@@ -151,11 +151,13 @@ View Recipes
                         
                         <div class="col-md-* ml-0 mb-5">
                             <div>
-                                <form id="CommentsForm" method="post" action="." enctype="multipart/form-data">
-                                    <textarea type="text" class="form-control" cols="150" rows="2" id="addComment"  placeholder="Hey bro say something here ~"></textarea> 
+                                <form id="CommentsForm" method="post"  enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form.content|as_crispy_field }}
+                                    <textarea type="text" class="form-control" cols="150" rows="2" id="content"  placeholder="Hey bro say something here ~"></textarea> 
                                     <input class="btn btn-primary" type="button" id="submitComment" value="Add comment"/>
                                 </form>
-                               
+                                
                             </div>
                         </div>
                         <div class="col-md-* ml-0 mb-5">
@@ -164,7 +166,7 @@ View Recipes
                                     <p> {{ comment.content }}</p>
                                 {% endfor %}
                             {% else %}
-                                <h3>no one write any comment here</h3>
+                                <h5>no one write any comment here</h5>
                             {% endif %}
                        
                         </div>

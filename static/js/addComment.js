@@ -8,8 +8,8 @@ $(document).ready(function() {
         else
         {
     
-            var content=$('#content').val();
-    
+            var content=$('#id_content').val();
+
             var data= new FormData();
             data.append('content', content);
     
@@ -26,7 +26,7 @@ $(document).ready(function() {
             }).done(function (data){
     
                 if (data.success){
-                    window.location.href = data.url;
+                    alert("success");
                 }
                 else{
                     document.write(data.html);
