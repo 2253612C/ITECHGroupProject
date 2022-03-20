@@ -1,16 +1,31 @@
+
 h5 {
-    float: left;
-    color:rgb(87, 60, 21);
+    margin-bottom: 1em;
 }
-h3 {
 
-    color:rgb(143, 11, 22);
-}
 p {
-
     display: block;
-
-    padding: 15px 16px;
-
-    background-color:rgba(40, 199, 88, 0.3);
+    text-align: justify;
+    width:50em;
+    word-wrap: break-word;
 }
+
+#recipe_icons {
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+   }
+
+#recipe_icons span{
+
+    padding-left: 1em;
+}
+
+#submitCommentButton {
+
+    display: flex;
+    justify-content: center;
+
+}
+
+

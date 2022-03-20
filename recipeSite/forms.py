@@ -34,9 +34,8 @@ class RecipeForm(forms.ModelForm):
 
 
 class CommentsForm(forms.ModelForm):
-    submissionDateTime = forms.DateTimeField() #default=datetime.now(), blank=True
-    content = forms.CharField(max_length=500, help_text="Please put your comments here.") #was txt field
-    #whose_comment
+    content = forms.CharField(max_length=250, help_text="Please enter your comment.",widget=forms.Textarea(attrs={'rows':2,'cols':150,'placeholder':'Enter Your Comment Here'})) #was textfield
+    
     class Meta:
         model = Comments
-        fields = ('submissionDateTime', 'content',)
+        fields = ('content',)

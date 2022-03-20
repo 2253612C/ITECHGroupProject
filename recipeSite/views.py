@@ -94,53 +94,22 @@ class AddRecipe(View):
                 'success': False,
                 'html': html,
             })
-class AddComment(View):
 
-    @method_decorator(login_required)
-    def get(self, request):
-        form=CommentsForm()
-        return render(request, 'recipeSite/viewRecipe.html',context =  {'form' : form})
-
-    @method_decorator(login_required)
-    def post(self,request):
-
-        form=CommentsForm(request.POST)
-
-        if form.is_valid():
-
-            comment=form.save(commit=False)
-            comment.author= request.user #associate this recipe with the user who is logged in when this request was made 
-            comment.save()
-
-            return JsonResponse({
-                'success': True,
-                'url': reverse('recipeSite:viewRecipe',kwargs={'recipe_name_slug': comment.slug}),
-            })
-
-        else:
-            print(form.errors)
-            html = render_to_string('recipeSite/viewRecipe.html',context =  {'form' : form})
-            return JsonResponse({
-                'success': False,
-                'html': html,
-            })
 def getRecipe(recipe_name_slug):
         context_dict={}
         try:
             recipe = Recipe.objects.get(slug=recipe_name_slug)
             ingredients = Ingredient.objects.filter(recipe=recipe)
             comments = Comments.objects.filter(recipe=recipe)
-            form=CommentsForm()
+
             context_dict['recipe'] = recipe
             context_dict['ingredients'] = ingredients
             context_dict['comments'] = comments
-            context_dict['form'] = form
 
         except Recipe.DoesNotExist: 
             context_dict['recipe'] = None
             context_dict['ingredients'] = None
             context_dict['comments'] = None
-            context_dict['form'] = None
 
         return context_dict
 
@@ -197,34 +166,36 @@ class editRecipe(View):
             return HttpResponse("You are not allowed to edit this page.")
 
 class viewRecipe(View):
-    @method_decorator(login_required)
+
     def get(self, request,recipe_name_slug):
         context_dict=getRecipe(recipe_name_slug)
+
+        form=CommentsForm()
+        context_dict['form']=form
+
         return render(request, 'recipeSite/viewRecipe.html', context=context_dict)
 
     @method_decorator(login_required)
-    def post(self,request):
+    def post(self,request,recipe_name_slug):
 
         form=CommentsForm(request.POST)
 
         if form.is_valid():
 
+            context_dict=getRecipe(recipe_name_slug)
+
             comment=form.save(commit=False)
-            comment.author= request.user #associate this recipe with the user who is logged in when this request was made 
+            comment.author=request.user
+            comment.recipe=context_dict['recipe']
             comment.save()
 
-            return JsonResponse({
-                'success': True,
-                'url': reverse('recipeSite:viewRecipe'),
-            })
+            
+
+            return render(request, 'recipeSite/viewRecipe.html', context=context_dict)
 
         else:
-            print(form.errors)
-            html = render_to_string('recipeSite/viewRecipe.html',context =  {'form' : form})
-            return JsonResponse({
-                'success': False,
-                'html': html,
-            })
+            return redirect(reverse('recipeSite:browseRecipes'))
+
 
 class ProfileView(View):
     def get_user_details(self, username):
