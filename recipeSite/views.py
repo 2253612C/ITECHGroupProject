@@ -263,6 +263,27 @@ class DeleteRecipeButton(View):
 
         recipe.delete()
         return HttpResponse("Deleted")
+
+class DeleteCommentButton(View):
+    @method_decorator(login_required)
+    def get(self, request):
+
+        commentID=request.GET['comment_id']
+
+        try:
+            comment = Comments.objects.get(id=int(commentID))
+            print(comment.content)
+
+        except comment.DoesNotExist:
+            print("failure")
+            return HttpResponse(-1)
+        
+        except ValueError:
+            print("failure2")
+            return HttpResponse(-1)
+
+        comment.delete()
+        return HttpResponse("Deleted")
         
 @login_required
 def myAccount(request):

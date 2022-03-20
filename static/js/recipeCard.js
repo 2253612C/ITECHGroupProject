@@ -23,7 +23,7 @@ $(document).ready(function() {
     })
 
 
-    $(".btn-outline-danger").click(function() { //delete button on recipe card when the user is on the 'my recipes' page
+    $(".deleteRecipeButton").click(function() { //delete button on recipe card when the user is on the 'my recipes' page
        
         var recipeIdVar;
         recipeIdVar = $(this).attr('data-recipeid'); //get the recipe id which was clicked

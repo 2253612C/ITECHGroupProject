@@ -13,6 +13,7 @@ urlpatterns = [
    path('search/', SearchView(), name='haystack_search'),
    path('bookmark/', views.BookmarkRecipeView.as_view(), name='bookmark'),
    path('delete/', views.DeleteRecipeButton.as_view(), name='delete'),
+   path('deleteComment/', views.DeleteCommentButton.as_view(), name='deleteComment'),
    path('like/', views.LikeCategoryView.as_view(), name='like'),
    path('viewRecipe/<slug:recipe_name_slug>/',views.viewRecipe.as_view(), name='viewRecipe'),
    path('editRecipe/<slug:recipe_name_slug>/',views.editRecipe.as_view(), name='editRecipe'),
