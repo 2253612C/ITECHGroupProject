@@ -17,7 +17,7 @@ from recipeSite.models import Ingredient
 def sort_recipes(recipeList, request):
     
     try:
-        sort_value=request.GET['sort']
+        sort_value=request.GET['sort'] #sort parameter for viewing recipes 
 
         if (sort_value=="mostPopular"):
             recipeList = recipeList.order_by('-likes')
@@ -37,7 +37,7 @@ def sort_recipes(recipeList, request):
 
 def browseRecipe(request):
 
-    AllrecipeList=sort_recipes(Recipe.objects.all(),request)
+    AllrecipeList=sort_recipes(Recipe.objects.all(),request) #get all recipes for the browse recipe page
     
     return render(request, 'recipeSite/browseRecipe.html',
             context = {'recipeList' : AllrecipeList})
@@ -45,7 +45,7 @@ def browseRecipe(request):
 @login_required
 def myRecipes(request):
 
-    userRecipeList=sort_recipes(Recipe.objects.filter(author=request.user),request)
+    userRecipeList=sort_recipes(Recipe.objects.filter(author=request.user),request) #get recipes submitted by the user making this request
 
     return render(request, 'recipeSite/myRecipes.html',
             context = {'recipeList' : userRecipeList})
@@ -82,14 +82,14 @@ class AddRecipe(View):
                 ingred = Ingredient.objects.get_or_create(recipe=recipe,ingredientName=ingredient)[0]
                 ingred.save()
 
-            return JsonResponse({
+            return JsonResponse({ #send json response back to ajax post 
                 'success': True,
-                'url': reverse('recipeSite:viewRecipe',kwargs={'recipe_name_slug': recipe.slug}),
+                'url': reverse('recipeSite:viewRecipe',kwargs={'recipe_name_slug': recipe.slug}), #redirect to the view recipe page after submission
             })
 
         else:
             print(form.errors)
-            html = render_to_string('recipeSite/addRecipe.html',context =  {'form' : form})
+            html = render_to_string('recipeSite/addRecipe.html',context =  {'form' : form}) #render the form again with errors
             return JsonResponse({
                 'success': False,
                 'html': html,
@@ -98,8 +98,8 @@ class AddRecipe(View):
 def getRecipe(recipe_name_slug):
         context_dict={}
         try:
-            recipe = Recipe.objects.get(slug=recipe_name_slug)
-            ingredients = Ingredient.objects.filter(recipe=recipe)
+            recipe = Recipe.objects.get(slug=recipe_name_slug) #get the recipe associated with the slug
+            ingredients = Ingredient.objects.filter(recipe=recipe) #get ingredients and comments
             comments = Comments.objects.filter(recipe=recipe)
 
             context_dict['recipe'] = recipe
@@ -178,20 +178,20 @@ class viewRecipe(View):
     @method_decorator(login_required)
     def post(self,request,recipe_name_slug):
 
-        form=CommentsForm(request.POST)
+        form=CommentsForm(request.POST) #create a form to make a comment
 
         if form.is_valid():
 
             context_dict=getRecipe(recipe_name_slug)
 
             comment=form.save(commit=False)
-            comment.author=request.user
+            comment.author=request.user #save the author of the comment 
             comment.recipe=context_dict['recipe']
             comment.save()
 
             
 
-            return render(request, 'recipeSite/viewRecipe.html', context=context_dict)
+            return render(request, 'recipeSite/viewRecipe.html', context=context_dict) #redisplay the page with the added comment 
 
         else:
             return redirect(reverse('recipeSite:browseRecipes'))
@@ -200,11 +200,11 @@ class viewRecipe(View):
 class ProfileView(View):
     def get_user_details(self, username):
         try:
-            user = User.objects.get(username=username)
+            user = User.objects.get(username=username) #get user object associated with the username
         except User.DoesNotExist:
             return None
 
-        recipeList = Recipe.objects.filter(author=user)
+        recipeList = Recipe.objects.filter(author=user) #get the recipes submitted by that user
 
         return (user, recipeList)
 
@@ -224,14 +224,14 @@ class ProfileView(View):
             return render(request, 'recipeSite/profile.html', context_dict)
 
 
-class BookmarkRecipeView(View):
+class BookmarkRecipeView(View): #view used to process ajax post when user clicks to bookmark a recipe
     @method_decorator(login_required)
     def get(self, request):
 
         recipeID=request.GET['recipe_id']
 
         try:
-            recipe = Recipe.objects.get(id=int(recipeID))
+            recipe = Recipe.objects.get(id=int(recipeID)) #get the recipe they bookmarked
 
         except recipe.DoesNotExist:
             return HttpResponse(-1)
@@ -246,14 +246,14 @@ class BookmarkRecipeView(View):
             recipe.bookmarks.add(request.user) #otherwise, they want to add the bookmark
             return HttpResponse("Bookmarked")
 
-class DeleteRecipeButton(View):
+class DeleteRecipeButton(View):  #view used to process ajax post when user clicks to delete a submitted recipe
     @method_decorator(login_required)
     def get(self, request):
 
         recipeID=request.GET['recipe_id']
 
         try:
-            recipe = Recipe.objects.get(id=int(recipeID))
+            recipe = Recipe.objects.get(id=int(recipeID))  #get recipe using id
 
         except recipe.DoesNotExist:
             return HttpResponse(-1)
@@ -261,14 +261,14 @@ class DeleteRecipeButton(View):
         except ValueError:
             return HttpResponse(-1)
 
-        recipe.delete()
+        recipe.delete() #remove from database
         return HttpResponse("Deleted")
 
-class DeleteCommentButton(View):
+class DeleteCommentButton(View):  #view used to process ajax post when user clicks to delete a submitted comment
     @method_decorator(login_required)
     def get(self, request):
 
-        commentID=request.GET['comment_id']
+        commentID=request.GET['comment_id'] #get comment by ID
 
         try:
             comment = Comments.objects.get(id=int(commentID))
@@ -308,15 +308,15 @@ class deleteAccount(View):
 
             User.objects.get(username=request.user.username).delete()
 
-            logout(request)
+            logout(request) #log user out first
 
-            return redirect(reverse('recipeSite:browseRecipes'))
+            return redirect(reverse('recipeSite:browseRecipes')) #redirect to homepage after user deletes accoount
             
         elif(request.POST.get("cancel")):
                 
-            return redirect(reverse('myAccount'))
+            return redirect(reverse('myAccount')) #redirect back to account page if they cancel
 
-class LikeCategoryView(View):
+class LikeCategoryView(View): #view used to process ajax get when user likes a recipe
     
     def get(self, request):
         recipeID = request.GET['recipe_id']

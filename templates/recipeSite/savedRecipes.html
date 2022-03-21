@@ -21,6 +21,7 @@ Bookmarked Recipes
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          Sort By
         </button>
+         <!-- Drop down menu for sorting recipes. sends a get request to the view for each -->
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" href="{% url 'recipeSite:savedRecipes' %}?sort=latest">Latest</a>
           <a class="dropdown-item" href="{% url 'recipeSite:savedRecipes' %}?sort=oldest">Oldest</a>
