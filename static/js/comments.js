@@ -3,19 +3,19 @@ $(document).ready(function() {
     
 
 
-    $(".deleteComment").click(function() { //delete button on recipe card when the user is on the 'my recipes' page
+    $(".deleteComment").click(function() { //delete button for comments 
        
         var commentIdVar;
-        commentIdVar = $(this).attr('data-commentid'); //get the recipe id which was clicked
+        commentIdVar = $(this).attr('data-commentid'); //get the comment which was clicked
 
-        var clickedComment=$(this).closest('.commentParagraph'); //get the closest div element for the card which contains the delete button
+        var clickedComment=$(this).closest('.commentParagraph'); //get the div element containing the comment
         
         $.get('/recipes/deleteComment/',
         {'comment_id': commentIdVar}, //data sent to view 
         
         function(data) { //after the function has been called 
            
-            clickedComment.remove(); //remove the recipe card from the user view
+            clickedComment.remove(); //remove the comment from the user view
             
         })
     })

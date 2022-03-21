@@ -19,6 +19,7 @@ My Recipes
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
        Sort By
       </button>
+       <!-- Drop down menu for sorting recipes. sends a get request to the view for each -->
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" href="{% url 'recipeSite:myRecipes' %}?sort=latest">Latest</a>
         <a class="dropdown-item" href="{% url 'recipeSite:myRecipes' %}?sort=oldest">Oldest</a>
@@ -30,5 +31,5 @@ My Recipes
   </div>
  </br>
  </div>
-{% draw_recipe_cards recipeList user True %}
+{% draw_recipe_cards recipeList user True %} <!-- this draws the recipe cards passed into the template. send a true boolean to allow for edit and delete buttons-->
 {% endblock %}

@@ -146,7 +146,7 @@ View Recipes
                             <h5>Comments</h5>
                         </div> 
 
-                        {% if user.is_authenticated and user != recipe.author %}
+                        {% if user.is_authenticated %}  <!-- only register users can comment  -->
                         <div class="col-md-12 ml-0 mb-3">
                             <div>
                                 <form id="CommentsForm" method="post"  enctype="multipart/form-data">
@@ -210,7 +210,6 @@ View Recipes
             </div>
 
         </div>
-    {% else %}
-        <h3>Recipe was eaten by zombie! oh HAH</h3>
+   
     {% endif %}
 {% endblock %}
